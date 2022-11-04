@@ -12,9 +12,4 @@ public class GreetingController {
         model.addAttribute("name", "World");
         return "greeting";
     }
-
-    @GetMapping("/login")
-    public String login(){
-        return "login_page";
-    }
 }

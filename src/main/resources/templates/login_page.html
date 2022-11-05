@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>Страница авторизации</title>
@@ -7,13 +7,15 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/signin.css" rel="stylesheet">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
+            -webkit-loginForm-select: none;
+            -moz-loginForm-select: none;
+            loginForm-select: none;
         }
 
         @media (min-width: 768px) {
@@ -65,19 +67,22 @@
 <body class="text-center">
 
 <main class="form-signin w-100 m-auto">
-    <form th:action="@{/client_login}" method="post">
+    <!--/*@thymesVar id="userForm" type="ru.alexeyk2021.dbweb.models.LoginForm"*/-->
+    <form id="form" th:action="@{/client_login}" th:object="${userForm}" method="post">
         <img class="mb-4" src="svg/mysql-official.svg" alt="" width="72" height="57">
 
         <div class="form-floating">
-            <input type="email" name="username" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Адрес электронной почты</label>
+            <input type="email" th:field="*{username}" class="form-control" id="emailField"
+                   placeholder="name@example.com">
+            <label for="emailField">Адрес электронной почты</label>
         </div>
         <div class="form-floating">
-            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Пароль</label>
+            <input type="password" th:field="*{password}" class="form-control" id="passwordField"
+                   placeholder="Password">
+            <label for="passwordField">Пароль</label>
         </div>
 
-        <input class="w-100 btn btn-lg btn-primary" type="submit" value="Log in"/>
+        <input class="w-100 btn btn-lg btn-primary" type="submit" value="Войти"></input>
         <!--        <button class="w-100 btn btn-lg btn-primary" type="button" onclick="location.href='/client';">Войти</button>-->
         <!--        <button class="w-100 h-25 btn btn-lg btn-success" type="button" onclick="location.href='/admin'">Войти как-->
         <!--            администратор-->

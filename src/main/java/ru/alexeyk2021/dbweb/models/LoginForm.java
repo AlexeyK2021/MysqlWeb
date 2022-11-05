@@ -1,15 +1,15 @@
-package ru.alexeyk2021.dbweb;
+package ru.alexeyk2021.dbweb.models;
 
-public class User {
+public class LoginForm {
     private String username;
     private String password;
 
-    public User(String username, String password) {
+    public LoginForm(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public User() {
+    public LoginForm() {
     }
 
     public String getUsername() {

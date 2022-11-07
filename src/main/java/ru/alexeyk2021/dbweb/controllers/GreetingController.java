@@ -1,4 +1,4 @@
-package ru.alexeyk2021.dbweb;
+package ru.alexeyk2021.dbweb.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

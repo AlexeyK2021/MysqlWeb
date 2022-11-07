@@ -1,4 +1,4 @@
-package ru.alexeyk2021.dbweb.models;
+package ru.alexeyk2021.dbweb.transfer;
 
 public class LoginForm {
     private String username;

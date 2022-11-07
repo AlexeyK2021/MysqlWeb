@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Статистика</title>
+    <title th:text="*{pageSettings.getCurrentPageName()}"></title>
     <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="../../css/navbar.css" rel="stylesheet" type="text/css">
     <style>
@@ -69,26 +69,35 @@
                     aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-            <div class="collapse navbar-collapse" id="navbarsExample02">
+            <!--/*@thymesVar id="pageSettings" type="ru.alexeyk2021.dbweb.transfer.PageSettings"*/-->
+            <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page">Статистика</a>
+                        <a class="nav-link active" th:class="*{pageSettings.isStats()}"
+                           href="/admin/stats">Статистика</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/clients">Клиенты</a>
+                        <a class="nav-link" th:class="*{pageSettings.isClients()}" href="/admin/clients">Клиенты</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/tariffs">Тарифы</a>
+                        <a class="nav-link" th:class="*{pageSettings.isTariffs()}" href="/admin/tariffs">Тарифы</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/adds">Доп. услуги</a>
+                        <a class="nav-link" th:class="*{pageSettings.isAdds()}" href="/admin/adds">Доп. услуги</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 </header>
-
+<!--/*@thymesVar id="clients_list" type="ru.alexeyk2021.dbweb.models.Client"*/-->
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" th:each="client: ${clients_list}">
+    <div class="col">
+        <h5 th:text="*{client.getPhoneNumber()}"/><label class="" th:text="*{client.getAccountState()}"/><br>
+        <label th:text="*{client.getTariff().getName()}"/><label th:text="*{client.getBalance()}"/><br>
+        <label th:text="*{client.getPersonalInfo().getFullName()}"/><br>
+        <input class="w-100 h-25 btn btn-lg btn-primary" type="submit" value="Изменить"></input>
+    </div>
+</div>
 </body>
 </html>

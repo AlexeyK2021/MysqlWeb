@@ -6,6 +6,8 @@
     <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="../../css/navbar.css" rel="stylesheet" type="text/css">
     <link href="../../css/tile.css" rel="stylesheet" type="text/css">
+    <link href="../../css/findForm.css" rel="stylesheet" type="text/css">
+    <link href="../../css/page.css" rel="stylesheet" type="text/css">
     <style>
         .nav-scroller .nav {
             display: flex;
@@ -20,11 +22,16 @@
     </style>
 
 </head>
-<!--/*@thymesVar id="clients_list" type="ru.alexeyk2021.dbweb.models.Client"*/-->
-<!--/*@thymesVar id="pageSettings" type="ru.alexeyk2021.dbweb.transfer.PageSettings"*/-->
+
 <body>
 <header th:insert="navbar :: header"></header>
-<div th:insert="tile_client">
-</div>
+<th:block th:if="*{pageSettings.isClients()}">
+    <div class="find">
+        <input type="text"></input>
+        <input type="submit" class="btn-find">
+    </div>
+    <div class="tiles-container" th:insert="clients_tiles"></div>
+</th:block>
+
 </body>
 </html>

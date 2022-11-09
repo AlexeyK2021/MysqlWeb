@@ -14,10 +14,8 @@ public class PageSettings {
     public PageSettings() {
     }
 
-    public String isStats() {
-        String cssClass = "nav-link";
-        if (stats) cssClass += " active";
-        return cssClass;
+    public boolean isStats() {
+        return stats;
     }
 
     public void setStats() {
@@ -30,10 +28,8 @@ public class PageSettings {
         currentPageName = "Статистика";
     }
 
-    public String isClients() {
-        String cssClass = "nav-link";
-        if (clients) cssClass += " active";
-        return cssClass;
+    public boolean isClients() {
+        return clients;
     }
 
     public void setClients() {
@@ -46,10 +42,8 @@ public class PageSettings {
         currentPageName = "Настройка клиентов";
     }
 
-    public String isTariffs() {
-        String cssClass = "nav-link";
-        if (tariffs) cssClass += " active";
-        return cssClass;
+    public boolean isTariffs() {
+        return tariffs;
     }
 
     public void setTariffs() {
@@ -62,10 +56,8 @@ public class PageSettings {
         currentPageName = "Настройка тарифов";
     }
 
-    public String isAdds() {
-        String cssClass = "nav-link";
-        if (adds) cssClass += " active";
-        return cssClass;
+    public boolean isAdds() {
+        return adds;
     }
 
     public void setAdds() {
@@ -78,10 +70,8 @@ public class PageSettings {
         currentPageName = "Настройка дополнительных услуг";
     }
 
-    public String isMainPage() {
-        String cssClass = "nav-link";
-        if (mainPage) cssClass += " active";
-        return cssClass;
+    public boolean isMainPage() {
+        return mainPage;
     }
 
     public void setMainPage() {
@@ -94,10 +84,8 @@ public class PageSettings {
         currentPageName = "Главная";
     }
 
-    public String isPersonalInfo() {
-        String cssClass = "nav-link";
-        if (personalInfo) cssClass += " active";
-        return cssClass;
+    public boolean isPersonalInfo() {
+        return personalInfo;
     }
 
     public void setPersonalInfo() {

@@ -1,0 +1,14 @@
+.find{
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    margin-top: 20px;
+    border-radius: 12px;
+    justify-content: center;
+}
+
+.button-find {
+    background: #198754;
+    border-radius: 8px;
+    font-size: 18px;
+}

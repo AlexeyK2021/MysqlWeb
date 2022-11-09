@@ -1,5 +1,6 @@
 <div class="row row-cols-2 row-cols-sm-2 row-cols-md-4 g-5" th:fragment="tile_client">
     <div class="form" th:each="client: ${clients_list}">
+        <!--/*@thymesVar id="client" type="ru.alexeyk2021.dbweb.models.Client"*/-->
         <label class="l1" th:text="*{client.getPhoneNumber()}"></label>
         <div>
             <label class="left l2">Тариф:</label>

@@ -1,4 +1,3 @@
-
 <header th:fragment="navbar">
     <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
         <div class="container-fluid">
@@ -7,21 +6,24 @@
                     aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
+            <!--/*@thymesVar id="pageSettings" type="ru.alexeyk2021.dbweb.transfer.PageSettings"*/-->
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" th:class="*{pageSettings.isStats()}"
+                        <a class="nav-link active" th:class="*{pageSettings.isStats()}? 'nav-link active':'nav-link'"
                            href="/admin/stats">Статистика</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:class="*{pageSettings.isClients()}" href="/admin/clients">Клиенты</a>
+                        <a class="nav-link" th:class="*{pageSettings.isClients()}? 'nav-link active':'nav-link'"
+                           href="/admin/clients">Клиенты</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:class="*{pageSettings.isTariffs()}" href="/admin/tariffs">Тарифы</a>
+                        <a class="nav-link" th:class="*{pageSettings.isTariffs()}? 'nav-link active':'nav-link'"
+                           href="/admin/tariffs">Тарифы</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:class="*{pageSettings.isAdds()}" href="/admin/adds">Доп. услуги</a>
+                        <a class="nav-link" th:class="*{pageSettings.isAdds()}? 'nav-link active':'nav-link'"
+                           href="/admin/adds">Доп. услуги</a>
                     </li>
                 </ul>
             </div>

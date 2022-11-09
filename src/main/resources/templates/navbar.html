@@ -1,0 +1,30 @@
+
+<header th:fragment="navbar">
+    <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Страница администратора</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02"
+                    aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" th:class="*{pageSettings.isStats()}"
+                           href="/admin/stats">Статистика</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:class="*{pageSettings.isClients()}" href="/admin/clients">Клиенты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:class="*{pageSettings.isTariffs()}" href="/admin/tariffs">Тарифы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:class="*{pageSettings.isAdds()}" href="/admin/adds">Доп. услуги</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

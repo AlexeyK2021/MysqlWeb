@@ -1,0 +1,64 @@
+.left {
+    float: left;
+    margin-left: 15px;
+}
+
+.right {
+    float: right;
+    margin-right: 15px;
+}
+
+.l1 {
+    font-weight: bold;
+    font-size: 24px;
+    align-self: center;
+}
+
+.l2 {
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 12px;
+    padding: 10px;
+    background: beige;
+    height: 300px;
+    width: 400px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.forml2 {
+    display: flex;
+    flex-direction: row;
+}
+
+.button-group {
+    width: 100%;
+    height: 25%;
+    border-radius: 8px;
+    border: unset;
+    margin-top: 25px;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+.button {
+    border-radius: 8px;
+    width: 45%;
+    height: 100%;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.button-edit {
+    background: #2186a6;
+}
+
+.button-delete {
+    background: red;
+}

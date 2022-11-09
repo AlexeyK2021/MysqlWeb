@@ -30,6 +30,9 @@ public class AdminPageController {
         clientsList.add(new Client(1, 150, "+79123456789", true, new Tariff(1,"Test1", 150.0,"test1",30.0,30,30),   new ClientPersonalInfo(1,"test1 test1 test1","4500 000000","test1@mail.ru","testetates"), null, null));
         clientsList.add(new Client(2, 300, "+79461376351", true, new Tariff(2,"Test2", 200,"test2",15.0,15,15),     new ClientPersonalInfo(1,"test2 test2 test2","4500 594412","test2@mail.ru","testetates"), null, null));
         clientsList.add(new Client(3, -50, "+79261524546", false, new Tariff(3,"Test3", 300.0,"test3",10.0,10,10),  new ClientPersonalInfo(1,"test3 test3 test3","4500 646196","test3@mail.ru","testetates"), null, null));
+        clientsList.add(new Client(1, 150, "+79123456789", true, new Tariff(1,"Test1", 150.0,"test1",30.0,30,30),   new ClientPersonalInfo(1,"test1 test1 test1","4500 000000","test1@mail.ru","testetates"), null, null));
+        clientsList.add(new Client(2, 300, "+79461376351", true, new Tariff(2,"Test2", 200,"test2",15.0,15,15),     new ClientPersonalInfo(1,"test2 test2 test2","4500 594412","test2@mail.ru","testetates"), null, null));
+        clientsList.add(new Client(3, -50, "+79261524546", false, new Tariff(3,"Test3", 300.0,"test3",10.0,10,10),  new ClientPersonalInfo(1,"test3 test3 test3","4500 646196","test3@mail.ru","testetates"), null, null));
         model.addAttribute("pageSettings", pageSettings);
         model.addAttribute("clients_list", clientsList);
         return "admin_page";

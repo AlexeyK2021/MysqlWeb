@@ -5,47 +5,8 @@
     <title th:text="*{pageSettings.getCurrentPageName()}"></title>
     <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="../../css/navbar.css" rel="stylesheet" type="text/css">
+    <link href="../../css/tile.css" rel="stylesheet" type="text/css">
     <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-loginForm-select: none;
-            -moz-loginForm-select: none;
-            loginForm-select: none;
-        }
-
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-
-        .b-example-divider {
-            height: 3rem;
-            background-color: rgba(0, 0, 0, .1);
-            border: solid rgba(0, 0, 0, .15);
-            border-width: 1px 0;
-            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-        }
-
-        .b-example-vr {
-            flex-shrink: 0;
-            width: 1.5rem;
-            height: 100vh;
-        }
-
-        .bi {
-            vertical-align: -.125em;
-            fill: currentColor;
-        }
-
-        .nav-scroller {
-            position: relative;
-            z-index: 2;
-            height: 2.75rem;
-            overflow-y: hidden;
-        }
-
         .nav-scroller .nav {
             display: flex;
             flex-wrap: nowrap;
@@ -59,45 +20,11 @@
     </style>
 
 </head>
-
-<body>
-<header>
-    <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Страница администратора</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02"
-                    aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!--/*@thymesVar id="pageSettings" type="ru.alexeyk2021.dbweb.transfer.PageSettings"*/-->
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" th:class="*{pageSettings.isStats()}"
-                           href="/admin/stats">Статистика</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:class="*{pageSettings.isClients()}" href="/admin/clients">Клиенты</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:class="*{pageSettings.isTariffs()}" href="/admin/tariffs">Тарифы</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:class="*{pageSettings.isAdds()}" href="/admin/adds">Доп. услуги</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
 <!--/*@thymesVar id="clients_list" type="ru.alexeyk2021.dbweb.models.Client"*/-->
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" th:each="client: ${clients_list}">
-    <div class="col">
-        <h5 th:text="*{client.getPhoneNumber()}"/><label class="" th:text="*{client.getAccountState()}"/><br>
-        <label th:text="*{client.getTariff().getName()}"/><label th:text="*{client.getBalance()}"/><br>
-        <label th:text="*{client.getPersonalInfo().getFullName()}"/><br>
-        <input class="w-100 h-25 btn btn-lg btn-primary" type="submit" value="Изменить"></input>
-    </div>
+<!--/*@thymesVar id="pageSettings" type="ru.alexeyk2021.dbweb.transfer.PageSettings"*/-->
+<body>
+<header th:insert="navbar :: header"></header>
+<div th:insert="tile_client">
 </div>
 </body>
 </html>

@@ -1,0 +1,26 @@
+<div class="row row-cols-2 row-cols-sm-2 row-cols-md-4 g-5" th:fragment="tile_tariff">
+    <!--/*@thymesVar id="tariff" type="ru.alexeyk2021.dbweb.models.Tariff"*/-->
+  <div class="form" th:each="tariff: ${tariffs_list}">
+    <label class="l1" th:text="*{tariff.getName()}"></label>
+    <div>
+      <label class="left l2">Моб. интернет:</label>
+      <label class="right l2" th:text="*{tariff.getInternetSize() + ' GB'}"></label>
+    </div>
+    <div>
+      <label class="left l2">SMS:</label>
+      <label class="right l2" th:text="*{tariff.getSmsSize()() + ' SMS'}"></label>
+    </div>
+    <div>
+      <label class="left l2">Минуты:</label>
+      <label class="right l2" th:text="*{tariff.getMinutesSize()() + ' минут'}"></label>
+    </div>
+    <div>
+      <label class="left l2">Цена</label>
+      <label class="right l2" th:text="*{tariff.getCost()() + 'р.'}"></label>
+    </div>
+    <div class="button-group">
+      <input class="button button-edit" type="submit" value="Изменить"/>
+      <input class="button button-delete" type="submit" value="Удалить"/>
+    </div>
+  </div>
+</div>

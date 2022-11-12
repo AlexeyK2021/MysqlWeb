@@ -22,15 +22,31 @@
     </style>
 
 </head>
-
 <body>
-<header th:insert="navbar :: header"></header>
+<header th:insert="parts/navbar :: header"></header>
+
 <th:block th:if="*{pageSettings.isClients()}">
     <div class="find">
-        <input type="text"></input>
-        <input type="submit" class="btn-find">
+        <input type="text" class="input-find"></input>
+        <input type="submit" class="button-find">
     </div>
-    <div class="tiles-container" th:insert="clients_tiles"></div>
+    <div class="tiles-container" th:insert="parts/clients_tile"></div>
+</th:block>
+
+<th:block th:if="*{pageSettings.isTariffs()}">
+    <div class="find">
+        <input type="text" class="input-find"></input>
+        <input type="submit" class="button-find">
+    </div>
+    <div class="tiles-container" th:insert="parts/tariffs_tile"></div>
+</th:block>
+
+<th:block th:if="*{pageSettings.isAdds()}">
+    <div class="find">
+        <input type="text" class="input-find"></input>
+        <input type="submit" class="button-find">
+    </div>
+    <div class="tiles-container" th:insert="parts/adds_tile"></div>
 </th:block>
 
 </body>

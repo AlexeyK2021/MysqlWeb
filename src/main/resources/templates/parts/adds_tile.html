@@ -1,0 +1,26 @@
+<div class="row row-cols-2 row-cols-sm-2 row-cols-md-4 g-5" th:fragment="tile_adds">
+    <!--/*@thymesVar id="add" type="ru.alexeyk2021.dbweb.models.AddService"*/-->
+    <div class="form" th:each="add: ${adds_list}">
+        <label class="l1" th:text="*{add.getName()}"></label>
+        <div>
+            <label class="left l2">Моб. интернет:</label>
+            <label class="right l2" th:text="*{add.getInternetSize() + ' GB'}"></label>
+        </div>
+        <div>
+            <label class="left l2">SMS:</label>
+            <label class="right l2" th:text="*{add.getSmsSize() + ' SMS'}"></label>
+        </div>
+        <div>
+            <label class="left l2">Минуты:</label>
+            <label class="right l2" th:text="*{add.getMinutesSize() + ' минут'}"></label>
+        </div>
+        <div>
+            <label class="left l2">Цена</label>
+            <label class="right l2" th:text="*{add.getCost() + 'р.'}"></label>
+        </div>
+        <div class="button-group">
+            <input class="button button-edit" type="submit" value="Изменить"/>
+            <input class="button button-delete" type="submit" value="Удалить"/>
+        </div>
+    </div>
+</div>

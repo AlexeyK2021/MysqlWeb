@@ -9,6 +9,11 @@
 
 .button-find {
     background: #198754;
-    border-radius: 8px;
+    border-radius: 4px;
+    font-size: 18px;
+}
+
+.input-find{
+    border-radius: 5px;
     font-size: 18px;
 }

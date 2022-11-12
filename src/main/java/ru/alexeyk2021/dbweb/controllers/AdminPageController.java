@@ -41,7 +41,12 @@ public class AdminPageController {
     @GetMapping("/admin/tariffs")
     public String tariffs_settings(Model model) {
         pageSettings.setTariffs();
+        ArrayList<Tariff> tariffsList = new ArrayList<>();
+        tariffsList.add(new Tariff(1,"Test1", 150.0, "Test1 Test1", 15.0, 150, 150));
+        tariffsList.add(new Tariff(2,"Test2", 450.0, "Test2 Test2", 10.0, 300, 300));
+        tariffsList.add(new Tariff(3,"Test3", 800.0, "Test3 Test3", 0.0, 500, 500));
         model.addAttribute("pageSettings", pageSettings);
+        model.addAttribute("tariffs_list", tariffsList);
         return "admin_page";
     }
 

@@ -32,6 +32,10 @@
     margin-right: 15px;
 }
 
+.form_stat{
+    height: 200px;
+}
+
 .forml2 {
     display: flex;
     flex-direction: row;

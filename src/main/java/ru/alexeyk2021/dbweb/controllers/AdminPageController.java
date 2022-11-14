@@ -3,10 +3,12 @@ package ru.alexeyk2021.dbweb.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import ru.alexeyk2021.dbweb.models.AddService;
 import ru.alexeyk2021.dbweb.models.Client;
 import ru.alexeyk2021.dbweb.models.ClientPersonalInfo;
 import ru.alexeyk2021.dbweb.models.Tariff;
 import ru.alexeyk2021.dbweb.transfer.PageSettings;
+import ru.alexeyk2021.dbweb.transfer.Stats;
 
 import java.util.ArrayList;
 
@@ -61,6 +63,7 @@ public class AdminPageController {
     public String stats(Model model) {
         pageSettings.setStats();
         model.addAttribute("pageSettings", pageSettings);
+        model.addAttribute("stats", new Stats(6,5,1,5,new Tariff(1,"Test1", 150.0, "Test1 Test1", 15.0, 150, 150),5,new AddService(1,"Test1", 150.0, "Test1 Test1", 15.0, 150, 150)));
         return "admin_page";
     }
 }

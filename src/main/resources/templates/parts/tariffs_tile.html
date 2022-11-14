@@ -8,15 +8,15 @@
     </div>
     <div>
       <label class="left l2">SMS:</label>
-      <label class="right l2" th:text="*{tariff.getSmsSize()() + ' SMS'}"></label>
+      <label class="right l2" th:text="*{tariff.getSmsSize() + ' SMS'}"></label>
     </div>
     <div>
       <label class="left l2">Минуты:</label>
-      <label class="right l2" th:text="*{tariff.getMinutesSize()() + ' минут'}"></label>
+      <label class="right l2" th:text="*{tariff.getMinutesSize() + ' минут'}"></label>
     </div>
     <div>
       <label class="left l2">Цена</label>
-      <label class="right l2" th:text="*{tariff.getCost()() + 'р.'}"></label>
+      <label class="right l2" th:text="*{tariff.getCost() + 'р.'}"></label>
     </div>
     <div class="button-group">
       <input class="button button-edit" type="submit" value="Изменить"/>

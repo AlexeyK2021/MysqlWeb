@@ -1,9 +1,9 @@
 package ru.alexeyk2021.dbweb.transfer;
 
-public class findForm {
+public class FindForm {
     private String findInfo;
 
-    public findForm() {
+    public FindForm() {
     }
 
     public String getFindInfo() {

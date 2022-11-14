@@ -49,5 +49,9 @@
     <div class="tiles-container" th:insert="parts/adds_tile"></div>
 </th:block>
 
+<th:block th:if="*{pageSettings.isStats()}">
+    <div class="stats" th:insert="parts/stats_part"></div>
+</th:block>
+
 </body>
 </html>

@@ -8,7 +8,7 @@
         </div>
         <div>
             <label class="left l2">ФИО:</label>
-            <label class="right l2" th:text="*{client.getPersonalInfo().getFullName()}"></label>
+            <label class="right l2" th:text="*{client.getPersonalInfo().getShortName()}"></label>
         </div>
         <div>
             <label class="left l2">Баланс:</label>
@@ -16,7 +16,7 @@
         </div>
         <div>
             <label class="left l2"> Аккаунт</label>
-            <label class="right l2" th:text="*{client.getAccountState()}"></label>
+            <label class="right l2" th:text="*{client.getAccountStateString()}"></label>
         </div>
         <div class="button-group">
             <input class="button button-edit" type="submit" value="Изменить"/>

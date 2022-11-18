@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import ru.alexeyk2021.dbweb.managers.DbManager;
 import ru.alexeyk2021.dbweb.models.AddService;
 import ru.alexeyk2021.dbweb.models.Client;
-import ru.alexeyk2021.dbweb.models.ClientPersonalInfo;
 import ru.alexeyk2021.dbweb.models.Tariff;
 import ru.alexeyk2021.dbweb.transfer.PageSettings;
 import ru.alexeyk2021.dbweb.transfer.Stats;
@@ -20,10 +19,13 @@ public class AdminPageController {
     private final ArrayList<Tariff> tariffsList;
     private final ArrayList<AddService> addsList;
 
+    private final Stats stats;
+
     public AdminPageController() {
         clientsList = DbManager.getInstance().getAllClients();
         tariffsList = DbManager.getInstance().getAllTariffs();
         addsList = DbManager.getInstance().getAllAdds();
+        stats = new Stats(clientsList, tariffsList, addsList);
         pageSettings = new PageSettings();
     }
 
@@ -52,7 +54,7 @@ public class AdminPageController {
     public String adds_settings(Model model) {
         pageSettings.setAdds();
         model.addAttribute("pageSettings", pageSettings);
-        model.addAttribute("tariffs_list", addsList);
+        model.addAttribute("adds_list", addsList);
         return "admin_page";
     }
 

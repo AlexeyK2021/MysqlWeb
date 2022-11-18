@@ -48,6 +48,10 @@ public class Client {
         return accountState;
     }
 
+    public String getAccountStateString() {
+        return accountState ? "Активен" : "Неактивен";
+    }
+
     public Tariff getTariff() {
         return tariff;
     }
@@ -83,5 +87,6 @@ public class Client {
     public String getPhoneNumber() {
         return phoneNumber;
     }
+
 }
 

@@ -140,11 +140,16 @@ public class DbManager {
             user.next(); ///????
             Client client = new Client(user);
 
+            statement = conn.prepareStatement("call selectPersonalInfoByNumber(?);");
+            statement.setString(1, phone_number);
+            ResultSet personal_info = statement.executeQuery();
+            personal_info.next();
+            client.setPersonalInfo(new ClientPersonalInfo(personal_info));
+
             statement = conn.prepareStatement("call selectTariffByNumber(?);");
             statement.setString(1, phone_number);
             ResultSet client_tariff = statement.executeQuery();
-
-            client_tariff.next();///????
+            client_tariff.next(); ///????
             client.setTariff(new Tariff(client_tariff));
 
             statement = conn.prepareStatement("call selectAddServicesByNumber(?);");

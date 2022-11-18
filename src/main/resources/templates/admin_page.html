@@ -30,7 +30,7 @@
         <input type="text" class="input-find"></input>
         <input type="submit" class="button-find">
     </div>
-    <div class="tiles-container" th:insert="parts/clients_tile"></div>
+    <div class="tiles-container" th:insert="parts/clients_tile :: div"></div>
 </th:block>
 
 <th:block th:if="*{pageSettings.isTariffs()}">

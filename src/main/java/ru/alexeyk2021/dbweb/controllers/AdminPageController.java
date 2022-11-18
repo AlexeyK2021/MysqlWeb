@@ -3,6 +3,7 @@ package ru.alexeyk2021.dbweb.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import ru.alexeyk2021.dbweb.managers.DbManager;
 import ru.alexeyk2021.dbweb.models.AddService;
 import ru.alexeyk2021.dbweb.models.Client;
 import ru.alexeyk2021.dbweb.models.ClientPersonalInfo;
@@ -14,9 +15,15 @@ import java.util.ArrayList;
 
 @Controller
 public class AdminPageController {
-    private PageSettings pageSettings;
+    private final PageSettings pageSettings;
+    private final ArrayList<Client> clientsList;
+    private final ArrayList<Tariff> tariffsList;
+    private final ArrayList<AddService> addsList;
 
     public AdminPageController() {
+        clientsList = DbManager.getInstance().getAllClients();
+        tariffsList = DbManager.getInstance().getAllTariffs();
+        addsList = DbManager.getInstance().getAllAdds();
         pageSettings = new PageSettings();
     }
 
@@ -28,13 +35,6 @@ public class AdminPageController {
     @GetMapping("/admin/clients")
     public String clients_settings(Model model) {
         pageSettings.setClients();
-        ArrayList<Client> clientsList = new ArrayList<>();
-        clientsList.add(new Client(1, 150, "+79123456789", true, new Tariff(1,"Test1", 150.0,"test1",30.0,30,30),   new ClientPersonalInfo(1,"test1 test1 test1","4500 000000","test1@mail.ru","testetates"), null, null));
-        clientsList.add(new Client(2, 300, "+79461376351", true, new Tariff(2,"Test2", 200,"test2",15.0,15,15),     new ClientPersonalInfo(1,"test2 test2 test2","4500 594412","test2@mail.ru","testetates"), null, null));
-        clientsList.add(new Client(3, -50, "+79261524546", false, new Tariff(3,"Test3", 300.0,"test3",10.0,10,10),  new ClientPersonalInfo(1,"test3 test3 test3","4500 646196","test3@mail.ru","testetates"), null, null));
-        clientsList.add(new Client(1, 150, "+79123456789", true, new Tariff(1,"Test1", 150.0,"test1",30.0,30,30),   new ClientPersonalInfo(1,"test1 test1 test1","4500 000000","test1@mail.ru","testetates"), null, null));
-        clientsList.add(new Client(2, 300, "+79461376351", true, new Tariff(2,"Test2", 200,"test2",15.0,15,15),     new ClientPersonalInfo(1,"test2 test2 test2","4500 594412","test2@mail.ru","testetates"), null, null));
-        clientsList.add(new Client(3, -50, "+79261524546", false, new Tariff(3,"Test3", 300.0,"test3",10.0,10,10),  new ClientPersonalInfo(1,"test3 test3 test3","4500 646196","test3@mail.ru","testetates"), null, null));
         model.addAttribute("pageSettings", pageSettings);
         model.addAttribute("clients_list", clientsList);
         return "admin_page";
@@ -43,10 +43,6 @@ public class AdminPageController {
     @GetMapping("/admin/tariffs")
     public String tariffs_settings(Model model) {
         pageSettings.setTariffs();
-        ArrayList<Tariff> tariffsList = new ArrayList<>();
-        tariffsList.add(new Tariff(1,"Test1", 150.0, "Test1 Test1", 15.0, 150, 150));
-        tariffsList.add(new Tariff(2,"Test2", 450.0, "Test2 Test2", 10.0, 300, 300));
-        tariffsList.add(new Tariff(3,"Test3", 800.0, "Test3 Test3", 0.0, 500, 500));
         model.addAttribute("pageSettings", pageSettings);
         model.addAttribute("tariffs_list", tariffsList);
         return "admin_page";
@@ -56,6 +52,7 @@ public class AdminPageController {
     public String adds_settings(Model model) {
         pageSettings.setAdds();
         model.addAttribute("pageSettings", pageSettings);
+        model.addAttribute("tariffs_list", addsList);
         return "admin_page";
     }
 

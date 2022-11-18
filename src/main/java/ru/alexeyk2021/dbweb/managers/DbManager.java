@@ -1,7 +1,6 @@
 package ru.alexeyk2021.dbweb.managers;
 
 
-
 import ru.alexeyk2021.dbweb.DbwebApplication;
 import ru.alexeyk2021.dbweb.models.*;
 
@@ -133,7 +132,7 @@ public class DbManager {
         return null;
     }
 
-    public Client findByPhoneNumber(String phone_number) {
+    public Client findByPhoneNumber(String phone_number) { // не назначается тариф и имя
         try (Connection conn = DriverManager.getConnection(connectionString)) {
             PreparedStatement statement = conn.prepareStatement("call selectClientByNumber(?);");
             statement.setString(1, phone_number);
@@ -176,5 +175,43 @@ public class DbManager {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    public ArrayList<Tariff> getAllTariffs() {
+        ArrayList<Tariff> tariff = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(connectionString)) {
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM tariff;");
+            ResultSet tariffs = statement.executeQuery();
+            while (tariffs.next()) tariff.add(new Tariff(tariffs));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return tariff;
+    }
+
+    public ArrayList<Client> getAllClients() {
+        ArrayList<Client> client = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(connectionString)) {
+            PreparedStatement statement = conn.prepareStatement("SELECT phone_number FROM client;");
+            ResultSet clients = statement.executeQuery();
+            while (clients.next()) {
+                client.add(findByPhoneNumber(clients.getString("phone_number")));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return client;
+    }
+
+    public ArrayList<AddService> getAllAdds() {
+        ArrayList<AddService> add = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(connectionString)) {
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM add_service;");
+            ResultSet adds = statement.executeQuery();
+            while (adds.next()) add.add(new AddService(adds));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return add;
     }
 }

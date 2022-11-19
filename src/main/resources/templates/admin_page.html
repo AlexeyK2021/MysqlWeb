@@ -26,26 +26,18 @@
 <header th:insert="parts/navbar :: header"></header>
 
 <th:block th:if="*{pageSettings.isClients()}">
-    <div class="find">
-        <input type="text" class="input-find"></input>
-        <input type="submit" class="button-find">
-    </div>
+    <input class="button-add" type="button" value="Добавить" onclick="">
+    <div th:insert="parts/find_field :: form"></div>
     <div class="tiles-container" th:insert="parts/clients_tile :: div"></div>
 </th:block>
 
 <th:block th:if="*{pageSettings.isTariffs()}">
-    <div class="find">
-        <input type="text" class="input-find"></input>
-        <input type="submit" class="button-find">
-    </div>
+    <div th:insert="parts/find_field :: form"></div>
     <div class="tiles-container" th:insert="parts/tariffs_tile"></div>
 </th:block>
 
 <th:block th:if="*{pageSettings.isAdds()}">
-    <div class="find">
-        <input type="text" class="input-find"></input>
-        <input type="submit" class="button-find">
-    </div>
+    <div th:insert="parts/find_field :: form"></div>
     <div class="tiles-container" th:insert="parts/adds_tile"></div>
 </th:block>
 

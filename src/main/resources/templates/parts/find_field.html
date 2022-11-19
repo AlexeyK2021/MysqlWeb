@@ -1,0 +1,5 @@
+<!--/*@thymesVar id="findForm" type="ru.alexeyk2021.dbweb.transfer.FindForm"*/-->
+<form class="find" th:fragment="find_field" th:action="@{/admin/clients/find}" th:object="${findForm}" method="post">
+    <input type="text" class="input-find" th:field="*{findInfo}"></input>
+    <input type="submit" class="button-find" value="Найти">
+</form>

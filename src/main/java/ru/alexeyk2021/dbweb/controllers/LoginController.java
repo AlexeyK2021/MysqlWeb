@@ -20,8 +20,6 @@ public class LoginController {
 
     @PostMapping("/client_login")
     public String clientLogin(@ModelAttribute("userForm") LoginForm loginForm, BindingResult bindingResult, Model model) {
-        //if (LoginManager.getInstance().enter(user.getUsername(), user.getPassword()))
-        System.out.println(loginForm.toString());
         if(LoginManager.getInstance().enterAsAdmin(loginForm.getUsername(), loginForm.getPassword())) return "redirect:/admin/stats";
         else if(LoginManager.getInstance().enter(loginForm.getUsername(), loginForm.getPassword())) return "redirect:/client";
         return "redirect:/login";

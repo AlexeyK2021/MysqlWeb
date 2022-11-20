@@ -1,0 +1,25 @@
+docker run --name mysql-server \
+                        -e MYSQL_ROOT_PASSWORD="AlexeyK2021" \
+                        -e MYSQL_USER="alexey" \
+                        -e MYSQL_PASSWORD="Alexey2002" \
+                        -p 3306:3306 \
+                        -d mysql:latest
+
+//Не робит nginx
+docker run --name nginx-server \
+                  -v /home/alexey/dockerData/nginx/html/:/usr/share/nginx/html/ \
+                  -v /home/alexey/dockerData/nginx/.nginx/nginx.conf:/etc/nginx/nginx.conf \
+                  -p 8080:8080 \
+                  -d nginx:alpine
+
+
+docker run --rm -u gradle --name gradle-builder \
+-v "/home/alexey/dockerData/gradle/dbweb/":/home/gradle/project/ \
+-w /home/gradle/project \
+gradle:latest gradle bootRun
+
+docker run --rm -u gradle --name gradle-builder \
+                    -v "/home/alexey/dockerData/gradle/dbweb/":/home/gradle/project/ \
+                    -w /home/gradle/project \
+                    -p 8081:8081 \
+                    gradle:latest gradle bootRun

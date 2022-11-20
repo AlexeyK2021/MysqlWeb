@@ -11,6 +11,7 @@ public class LoginManager {
     private DbManager dbManager;
 
     private Client currentUser = null;
+    private boolean adminIsLogged = false;
     private String adminLogin = "admin@admin.ru";
     private String adminPasswd = "ac9689e2272427085e35b9d3e3e8bed88cb3434828b43b86fc0596cad4c6e270";
 
@@ -32,7 +33,20 @@ public class LoginManager {
 
     public boolean enterAsAdmin(String login, String password) {
         String encryptedPassword = bytesToHex(digest(password.getBytes(), "SHA-256"));
-        return login.equals(adminLogin) && encryptedPassword.equals(adminPasswd);
+        adminIsLogged =  login.equals(adminLogin) && encryptedPassword.equals(adminPasswd);
+        return adminIsLogged;
+    }
+
+    public boolean isAdminIsLogged() {
+        return adminIsLogged;
+    }
+
+    public Client getCurrentUser() {
+        return currentUser;
+    }
+
+    public void exit(){
+
     }
 
     private static byte[] digest(byte[] input, String algorithm) {

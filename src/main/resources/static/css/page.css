@@ -1,4 +1,15 @@
 .tiles-container {
     margin-top: 50px;
     margin-left: 25px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.button-add{
+    background: #0f80b4;
+    border-radius: 4px;
+    border: 0;
+    font-size: 18px;
+    margin-left: 30px;
+    margin-top: 10px;
 }

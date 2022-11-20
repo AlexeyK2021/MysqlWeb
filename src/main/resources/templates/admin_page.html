@@ -23,26 +23,28 @@
 
 </head>
 <body>
-<header th:insert="parts/navbar :: header"></header>
+<header th:insert="parts/navbars/navbar_admin :: header"></header>
 
 <th:block th:if="*{pageSettings.isClients()}">
-    <input class="button-add" type="button" value="Добавить" onclick="">
     <div th:insert="parts/find_field :: form"></div>
-    <div class="tiles-container" th:insert="parts/clients_tile :: div"></div>
+    <input class="button-add" type="button" value="Добавить" onclick="">
+    <div class="tiles-container" th:insert="parts/tiles/clients_tile :: div"></div>
 </th:block>
 
 <th:block th:if="*{pageSettings.isTariffs()}">
     <div th:insert="parts/find_field :: form"></div>
-    <div class="tiles-container" th:insert="parts/tariffs_tile"></div>
+    <input class="button-add" type="button" value="Добавить" onclick="">
+    <div class="tiles-container" th:insert="parts/tiles/tariffs_tile :: div"></div>
 </th:block>
 
 <th:block th:if="*{pageSettings.isAdds()}">
     <div th:insert="parts/find_field :: form"></div>
-    <div class="tiles-container" th:insert="parts/adds_tile"></div>
+    <input class="button-add" type="button" value="Добавить" onclick="">
+    <div class="tiles-container" th:insert="parts/tiles/adds_tile :: div"></div>
 </th:block>
 
 <th:block th:if="*{pageSettings.isStats()}">
-    <div class="stats" th:insert="parts/stats_part"></div>
+    <div class="stats" th:insert="parts/stats_part :: div"></div>
 </th:block>
 
 </body>

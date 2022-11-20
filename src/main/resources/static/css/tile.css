@@ -19,7 +19,7 @@
     font-size: 18px;
 }
 
-.form {
+.tile {
     display: flex;
     flex-direction: column;
     border: 1px solid black;
@@ -36,16 +36,11 @@
     height: 200px;
 }
 
-.forml2 {
-    display: flex;
-    flex-direction: row;
-}
-
 .button-group {
     width: 100%;
     height: 25%;
     border-radius: 8px;
-    border: unset;
+    border: 0;
     margin-top: 25px;
     margin-right: 5%;
     margin-left: 5%;
@@ -57,6 +52,7 @@
     height: 100%;
     font-weight: bold;
     font-size: 20px;
+    border: 0;
 }
 
 .button-edit {

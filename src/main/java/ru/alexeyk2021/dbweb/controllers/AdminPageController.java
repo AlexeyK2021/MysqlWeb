@@ -12,7 +12,6 @@ import ru.alexeyk2021.dbweb.models.AddService;
 import ru.alexeyk2021.dbweb.models.Client;
 import ru.alexeyk2021.dbweb.models.Tariff;
 import ru.alexeyk2021.dbweb.transfer.FindForm;
-import ru.alexeyk2021.dbweb.transfer.LoginForm;
 import ru.alexeyk2021.dbweb.transfer.PageSettings;
 import ru.alexeyk2021.dbweb.transfer.Stats;
 
@@ -37,40 +36,56 @@ public class AdminPageController {
 
     @GetMapping("/admin")
     public String admin() {
-        return "redirect:/admin/stats";
+        if(LoginManager.getInstance().isAdminIsLogged())
+            return "redirect:/admin/stats";
+        return "redirect:/login";
     }
 
     @GetMapping("/admin/clients")
     public String clients_settings(Model model) {
-        pageSettings.setClients();
-        model.addAttribute("pageSettings", pageSettings);
-        model.addAttribute("clients_list", clientsList);
-        model.addAttribute("findForm", new FindForm());
-        return "admin_page";
+        if(LoginManager.getInstance().isAdminIsLogged()) {
+            pageSettings.setClients();
+            model.addAttribute("pageSettings", pageSettings);
+            model.addAttribute("clients_list", clientsList);
+            model.addAttribute("findForm", new FindForm());
+            return "admin_page";
+        }
+        return "redirect:/login";
     }
 
     @GetMapping("/admin/tariffs")
     public String tariffs_settings(Model model) {
-        pageSettings.setTariffs();
-        model.addAttribute("pageSettings", pageSettings);
-        model.addAttribute("tariffs_list", tariffsList);
-        return "admin_page";
+        if(LoginManager.getInstance().isAdminIsLogged()) {
+            pageSettings.setTariffs();
+            model.addAttribute("pageSettings", pageSettings);
+            model.addAttribute("tariffs_list", tariffsList);
+            model.addAttribute("findForm", new FindForm());
+            return "admin_page";
+        }
+        return "redirect:/login";
     }
 
     @GetMapping("/admin/adds")
     public String adds_settings(Model model) {
-        pageSettings.setAdds();
-        model.addAttribute("pageSettings", pageSettings);
-        model.addAttribute("adds_list", addsList);
-        return "admin_page";
+        if(LoginManager.getInstance().isAdminIsLogged()) {
+            pageSettings.setAdds();
+            model.addAttribute("pageSettings", pageSettings);
+            model.addAttribute("adds_list", addsList);
+            model.addAttribute("findForm", new FindForm());
+            return "admin_page";
+        }
+        return "redirect:/login";
     }
 
     @GetMapping("/admin/stats")
     public String stats(Model model) {
-        pageSettings.setStats();
-        model.addAttribute("pageSettings", pageSettings);
-        model.addAttribute("stats", new Stats(6, 5, 1, 5, new Tariff(1, "Test1", 150.0, "Test1 Test1", 15.0, 150, 150), 5, new AddService(1, "Test1", 150.0, "Test1 Test1", 15.0, 150, 150)));
-        return "admin_page";
+        if(LoginManager.getInstance().isAdminIsLogged()) {
+            pageSettings.setStats();
+            model.addAttribute("pageSettings", pageSettings);
+            model.addAttribute("stats", new Stats(6, 5, 1, 5, new Tariff(1, "Test1", 150.0, "Test1 Test1", 15.0, 150, 150), 5, new AddService(1, "Test1", 150.0, "Test1 Test1", 15.0, 150, 150)));
+            return "admin_page";
+        }
+        return "redirect:/login";
     }
 
     @PostMapping("/admin/clients/find")

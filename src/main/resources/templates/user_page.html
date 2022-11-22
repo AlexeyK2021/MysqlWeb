@@ -63,7 +63,7 @@
 <body>
 <header th:insert="parts/navbars/navbar_client :: header"></header>
 
-<th:block th:if="*{pageSettings.isMainPage()()}">
+<th:block th:if="*{pageSettings.isMainPage()}">
     <div class="tiles-container" th:insert="parts/client_home_page :: div"></div>
 </th:block>
 
@@ -78,7 +78,7 @@
     <div class="tiles-container" th:insert="parts/tiles/adds_tile :: div"></div>
 </th:block>
 
-<th:block th:if="*{pageSettings.isPersonalInfo()()()}">
+<th:block th:if="*{pageSettings.isPersonalInfo()}">
     <div class="tiles-container" th:insert="parts/client_personal_info :: div"></div>
 </th:block>
 </body>

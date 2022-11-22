@@ -1,8 +1,8 @@
 docker run --name mysql-server \
-                        -e MYSQL_ROOT_PASSWORD="AlexeyK2021" \
+                        -e MYSQL_ROOT_PASSWORD="Y8D5H9Z1X3" \
                         -e MYSQL_USER="alexey" \
                         -e MYSQL_PASSWORD="Alexey2002" \
-                        -p 3306:3306 \
+                        -p 3305:3305 \
                         -d mysql:latest
 
 //Не робит nginx

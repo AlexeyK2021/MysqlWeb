@@ -1,51 +1,51 @@
 <div class="row row-cols-2 row-cols-sm-2 row-cols-md-4 g-5" th:fragment="client_home_page">
-    <!--/*@thymesVar id="client" type="ru.alexeyk2021.dbweb.models.Client"*/-->
-    <!--/*@thymesVar id="EditingClient" type="ru.alexeyk2021.dbweb.transfer.EditingClient"*/-->
+    <!--/*@thymesVar id="client_info" type="ru.alexeyk2021.dbweb.models.Client"*/-->
+    <!--/*@thymesVar id="editingClient" type="ru.alexeyk2021.dbweb.transfer.EditingClient"*/-->
     <!--/*@thymesVar id="add" type="ru.alexeyk2021.dbweb.models.AddService"*/-->
-    <div class="tile form_stat">
+    <div class="tile">
         <label class="l1">О счёте</label>
         <div>
             <label class="left l2">Баланс:</label>
-            <label class="right l2" th:text="*{client.getBalance() + 'р.'}"></label>
+            <label class="right l2" th:text="*{client_info.getBalance() + ' р.'}"></label>
         </div>
         <div>
             <label class="left l2">Состояние:</label>
-            <label class="right l2" th:text="*{client.getAccountStateString()}"></label>
+            <label class="right l2" th:text="*{client_info.getAccountStateString()}"></label>
         </div>
-        <form id="form" th:action="@{/client_login}" th:object="${EditingClient}" method="post">
-            <input class="button button-edit" type="submit" value="Пополнить счёт" onclick="location.href=''"/>
-            <input type="number" class="input-find" th:field="*{addFunds}"></input>
+        <form id="form" class="add-funds" th:action="@{/client/add_money}" th:object="${editingClient}" method="post">
+            <input type="number" class="input-funds" th:field="*{addFunds}"></input>
+            <input class="button button-funds" type="submit" value="Пополнить" onclick="location.href=''"/>
         </form>
     </div>
 
-    <div class="tile form_stat">
+    <div class="tile">
         <label class="l1">Тариф</label>
         <div>
             <label class="left l2">Название:</label>
-            <label class="right l2" th:text="*{client.getTariff().getName()}"></label>
+            <label class="right l2" th:text="*{client_info.getTariff().getName()}"></label>
         </div>
         <div>
             <label class="left l2">Моб. интернет:</label>
-            <label class="right l2" th:text="*{client.getTariff().getInternetSize() + ' GB'}"></label>
+            <label class="right l2" th:text="*{client_info.getTariff().getInternetSize() + ' GB'}"></label>
         </div>
         <div>
             <label class="left l2">SMS:</label>
-            <label class="right l2" th:text="*{client.getTariff().getSmsSize() + ' SMS'}"></label>
+            <label class="right l2" th:text="*{client_info.getTariff().getSmsSize() + ' SMS'}"></label>
         </div>
         <div>
             <label class="left l2">Минуты:</label>
-            <label class="right l2" th:text="*{client.getTariff().getMinutesSize() + ' минут'}"></label>
+            <label class="right l2" th:text="*{client_info.getTariff().getMinutesSize() + ' минут'}"></label>
         </div>
         <div>
             <label class="left l2">Цена</label>
-            <label class="right l2" th:text="*{client.getTariff().getCost() + 'р.'}"></label>
+            <label class="right l2" th:text="*{client_info.getTariff().getCost() + 'р.'}"></label>
         </div>
         <input class="button button-edit" type="submit" value="Изменить" onclick="location.href='/client/tariffs'"/>
     </div>
 
-    <div class="tile form_stat">
+    <div class="tile">
         <label class="l1">Дополнительные услуги</label>
-        <div th:each="add: ${client.getAddServiceList()}">
+        <div th:each="add: ${client_info.getAddServiceList()}">
             <label class="left l2" th:text="*{add.getName()}"></label>
             <label class="right l2" th:text="*{add.getCost() + 'р.'}"></label>
         </div>

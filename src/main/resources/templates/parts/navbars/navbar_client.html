@@ -1,33 +1,34 @@
 <header th:fragment="navbar_client">
-  <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Страница клиента</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02"
-              aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <!--/*@thymesVar id="pageSettings" type="ru.alexeyk2021.dbweb.transfer.PageSettings"*/-->
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a class="nav-link active" th:class="*{pageSettings.isMainPage()}? 'nav-link active':'nav-link'"
-               href="/client/home">Главная</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" th:class="*{pageSettings.isTariffs()}? 'nav-link active':'nav-link'"
-               href="/client/tariffs">Тарифы</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" th:class="*{pageSettings.isAdds()}? 'nav-link active':'nav-link'"
-               href="/client/adds">Доп. услуги</a>
-          </li>
+    <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Страница клиента</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02"
+                    aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!--/*@thymesVar id="pageSettings" type="ru.alexeyk2021.dbweb.transfer.PageSettings"*/-->
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" th:class="*{pageSettings.isMainPage()}? 'nav-link active':'nav-link'"
+                           href="/client/home">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:class="*{pageSettings.isTariffs()}? 'nav-link active':'nav-link'"
+                           href="/client/tariffs">Тарифы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:class="*{pageSettings.isAdds()}? 'nav-link active':'nav-link'"
+                           href="/client/adds">Доп. услуги</a>
+                    </li>
 
-          <li class="nav-item">
-            <a class="nav-link" th:class="*{pageSettings.isPersonalInfo()}? 'nav-link active':'nav-link'"
-               href="/client/personal">Личная информация</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+                    <li class="nav-item">
+                        <a class="nav-link" th:class="*{pageSettings.isPersonalInfo()}? 'nav-link active':'nav-link'"
+                           href="/client/personal">Личная информация</a>
+                    </li>
+                </ul>
+                <a class="navbar-nav nav-link active" href="/logout">Выход</a>
+            </div>
+        </div>
+    </nav>
 </header>

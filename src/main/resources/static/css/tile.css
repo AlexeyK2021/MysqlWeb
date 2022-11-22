@@ -63,3 +63,31 @@
     background: red;
 }
 
+.button-funds{
+    background: #2186a6;
+    width: 49%;
+    height: 100%;
+}
+
+.add-funds{
+    height: 12%;
+    width: 80%;
+    margin-left: 15px;
+    margin-top: 25px;
+}
+
+.input-funds{
+    border-radius: 5px;
+    font-size: 18px;
+    width: 49%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+}
+

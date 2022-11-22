@@ -1,5 +1,7 @@
 package ru.alexeyk2021.dbweb.managers;
 
+
+import ru.alexeyk2021.dbweb.DbwebApplication;
 import ru.alexeyk2021.dbweb.models.*;
 
 import java.sql.Connection;
@@ -10,7 +12,8 @@ import java.util.ArrayList;
 
 
 public class DbManager {
-    private final String dbUrl = "127.0.0.1";
+    private final String dbUrl = "194.87.239.99"; //194.87.239.99 - 127.0.0.1
+    private final String dbPort = "3306"; //3306 - 3305
     private final String dbUser = "alexey";
     private final String dbPassword = "Alexey2002";
     private final String DbName = "mireaDB";
@@ -19,7 +22,7 @@ public class DbManager {
     private final String connectionString;
 
     private DbManager() {
-        connectionString = "jdbc:mysql://" + dbUrl + "/" + DbName + "?user=" + dbUser + "&password=" + dbPassword;
+        connectionString = "jdbc:mysql://" + dbUrl + ":" + dbPort + "/" + DbName + "?user=" + dbUser + "&password=" + dbPassword;
     }
 
     public static DbManager getInstance() {

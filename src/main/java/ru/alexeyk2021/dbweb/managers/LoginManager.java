@@ -46,7 +46,8 @@ public class LoginManager {
     }
 
     public void exit(){
-
+        currentUser = null;
+        adminIsLogged = false;
     }
 
     private static byte[] digest(byte[] input, String algorithm) {

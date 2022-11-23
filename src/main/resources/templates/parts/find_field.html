@@ -1,5 +1,16 @@
 <!--/*@thymesVar id="findForm" type="ru.alexeyk2021.dbweb.transfer.FindForm"*/-->
-<form class="find" th:fragment="find_field" th:action="@{/admin/clients/find}" th:object="${findForm}" method="post">
+<!--suppress ThymeleafVariablesResolveInspection -->
+<form class="find" th:fragment="find_field_clients" th:action="@{/admin/clients/find}" th:object="${findForm}" method="post">
+    <input type="text" class="input-find" th:field="*{findInfo}"></input>
+    <input type="submit" class="button-find" value="Найти">
+</form>
+
+<form class="find" th:fragment="find_field_tariffs" th:action="@{/admin/tariffs/find}" th:object="${findForm}" method="post">
+    <input type="text" class="input-find" th:field="*{findInfo}"></input>
+    <input type="submit" class="button-find" value="Найти">
+</form>
+
+<form class="find" th:fragment="find_field_adds" th:action="@{/admin/adds/find}" th:object="${findForm}" method="post">
     <input type="text" class="input-find" th:field="*{findInfo}"></input>
     <input type="submit" class="button-find" value="Найти">
 </form>

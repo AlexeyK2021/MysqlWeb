@@ -1,13 +1,11 @@
 package ru.alexeyk2021.dbweb.transfer;
 
+import ru.alexeyk2021.dbweb.managers.DbManager;
 import ru.alexeyk2021.dbweb.models.AddService;
 import ru.alexeyk2021.dbweb.models.Client;
 import ru.alexeyk2021.dbweb.models.Tariff;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Stats {
     private int clientQuantity;
@@ -21,7 +19,11 @@ public class Stats {
     private AddService popularAdd;
 
     public Stats() {
-
+        this.clientQuantity =
+        this.activeClients =
+        this.inactiveClients =
+        this.tariffQuantity =
+        this.addsQuantity =
     }
 
     public Stats(int clientQuantity, int activeClients, int inactiveClients, int tariffQuantity, Tariff popularTariff, int addsQuantity, AddService popularAdd) {
@@ -33,6 +35,7 @@ public class Stats {
         this.addsQuantity = addsQuantity;
         this.popularAdd = popularAdd;
     }
+
 
     public Stats(ArrayList<Client> clientsList, ArrayList<Tariff> tariffsList, ArrayList<AddService> addsList) {
         //получить с БД таблицу популярных   [id_тарифа, count(client.tariff == this)]
@@ -57,15 +60,13 @@ public class Stats {
 //            else tariffsNum.put(c.getTariff(), 1);
 //        }
 //        return tariffsNum;
+
     }
 
     public int getClientQuantity() {
         return clientQuantity;
     }
 
-    public void setClientQuantity(int clientQuantity) {
-        this.clientQuantity = clientQuantity;
-    }
 
     public int getActiveClients() {
         return activeClients;
@@ -75,9 +76,6 @@ public class Stats {
         return (int) (activeClients * 100.0 / clientQuantity) + "%";
     }
 
-    public void setActiveClients(int activeClients) {
-        this.activeClients = activeClients;
-    }
 
     public int getInactiveClients() {
         return inactiveClients;
@@ -87,39 +85,23 @@ public class Stats {
         return (int) (inactiveClients * 100.0 / clientQuantity) + "%";
     }
 
-    public void setInactiveClients(int inactiveClients) {
-        this.inactiveClients = inactiveClients;
-    }
 
     public int getTariffQuantity() {
         return tariffQuantity;
     }
 
-    public void setTariffQuantity(int tariffQuantity) {
-        this.tariffQuantity = tariffQuantity;
+
+    public ArrayList<String> getPopularTariffNames() {
+        return DbManager.getInstance().getPopularTariffs();
     }
 
-    public Tariff getPopularTariff() {
-        return popularTariff;
-    }
-
-    public void setPopularTariff(Tariff popularTariff) {
-        this.popularTariff = popularTariff;
-    }
 
     public int getAddsQuantity() {
         return addsQuantity;
     }
 
-    public void setAddsQuantity(int addsQuantity) {
-        this.addsQuantity = addsQuantity;
-    }
 
-    public AddService getPopularAdd() {
-        return popularAdd;
-    }
-
-    public void setPopularAdd(AddService popularAdd) {
-        this.popularAdd = popularAdd;
+    public ArrayList<String> getPopularAddNames() {
+        return DbManager.getInstance().getPopularAdds();
     }
 }

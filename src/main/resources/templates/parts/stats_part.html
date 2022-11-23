@@ -24,7 +24,7 @@
         </div>
         <div>
             <label class="left l2">Популярный:</label>
-            <label class="right l2" th:text="*{stats.getPopularTariff().getName()}"></label>
+            <label class="right l2" th:text="*{stats.getPopularTariffNames().getName()}"></label>
         </div>
         <input class="button button-edit" type="submit" value="Изменить" onclick="location.href='/admin/tariffs'"/>
     </div>
@@ -39,7 +39,7 @@
         <div>
             <label class="left l2">Популярная:</label>
             <label class="right l2"
-                   th:text="*{stats.getPopularAdd().getName()}"></label>
+                   th:text="*{stats.getPopularAddNames().getName()}"></label>
         </div>
         <input class="button button-edit" type="submit" value="Изменить" onclick="location.href='/admin/adds'"/>
     </div>

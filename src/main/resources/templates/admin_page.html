@@ -26,19 +26,19 @@
 <header th:insert="parts/navbars/navbar_admin :: header"></header>
 
 <th:block th:if="*{pageSettings.isClients()}">
-    <div th:insert="parts/find_field :: form"></div>
+    <div th:insert="parts/find_field :: find_field_clients"></div>
     <input class="button-add" type="button" value="Добавить" onclick="">
     <div class="tiles-container" th:insert="parts/tiles/clients_tile :: div"></div>
 </th:block>
 
 <th:block th:if="*{pageSettings.isTariffs()}">
-    <div th:insert="parts/find_field :: form"></div>
+    <div th:insert="parts/find_field :: find_field_tariffs"></div>
     <input class="button-add" type="button" value="Добавить" onclick="">
     <div class="tiles-container" th:insert="parts/tiles/tariffs_tile :: div"></div>
 </th:block>
 
 <th:block th:if="*{pageSettings.isAdds()}">
-    <div th:insert="parts/find_field :: form"></div>
+    <div th:insert="parts/find_field :: find_field_adds"></div>
     <input class="button-add" type="button" value="Добавить" onclick="">
     <div class="tiles-container" th:insert="parts/tiles/adds_tile :: div"></div>
 </th:block>

@@ -89,12 +89,34 @@ public class AdminPageController {
     }
 
     @PostMapping("/admin/clients/find")
-    public String clientLogin(@ModelAttribute("findForm") FindForm findForm, BindingResult bindingResult, Model model) {
+    public String findClient(@ModelAttribute("findForm") FindForm findForm, BindingResult bindingResult, Model model) {
         ArrayList<String> phones = DbManager.getInstance().findByPartNumber(findForm.getFindInfo());
-        clientsList = new ArrayList<>();
+        clientsList.clear();
         for (String p: phones) {
             clientsList.add(DbManager.getInstance().findByPhoneNumber(p));
         }
         return "redirect:/admin/clients";
+    }
+
+    @PostMapping("/admin/tariffs/find")
+    public String findTariff(@ModelAttribute("findForm") FindForm findForm, BindingResult bindingResult, Model model) {
+        ArrayList<Tariff> tariffs = DbManager.getInstance().getAllTariffs();
+        tariffsList.clear();
+        for (Tariff t: tariffs) {
+            if(t.getName().toLowerCase().contains(findForm.getFindInfo().toLowerCase()))
+                tariffsList.add(t);
+        }
+        return "redirect:/admin/tariffs";
+    }
+
+    @PostMapping("/admin/adds/find")
+    public String findAdd(@ModelAttribute("findForm") FindForm findForm, BindingResult bindingResult, Model model) {
+        ArrayList<AddService> adds = DbManager.getInstance().getAllAdds();
+        addsList.clear();
+        for (AddService a: adds) {
+            if(a.getName().toLowerCase().contains(findForm.getFindInfo().toLowerCase()))
+                addsList.add(a);
+        }
+        return "redirect:/admin/adds";
     }
 }

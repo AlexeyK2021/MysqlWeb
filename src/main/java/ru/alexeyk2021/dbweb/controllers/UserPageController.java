@@ -43,6 +43,7 @@ public class UserPageController {
         if (LoginManager.getInstance().getCurrentUser() != null) {
             pageSettings.setTariffs();
             model.addAttribute("client_info", LoginManager.getInstance().getCurrentUser());
+            model.addAttribute("findForm", new FindForm());
             model.addAttribute("pageSettings", pageSettings);
             return "user_page";
         }
@@ -54,6 +55,7 @@ public class UserPageController {
         if (LoginManager.getInstance().getCurrentUser() != null) {
             pageSettings.setAdds();
             model.addAttribute("client_info", LoginManager.getInstance().getCurrentUser());
+            model.addAttribute("findForm", new FindForm());
             model.addAttribute("pageSettings", pageSettings);
             return "user_page";
         }

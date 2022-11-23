@@ -119,7 +119,7 @@ public class DbManager {
     public ArrayList<String> findByPartNumber(String phone_number) {
         try (Connection conn = DriverManager.getConnection(connectionString)) {
             PreparedStatement statement = conn.prepareStatement("call getLikeNumbersList(?);");
-            statement.setString(1, phone_number + "%");
+            statement.setString(1, "%" + phone_number + "%");
             ResultSet numbers = statement.executeQuery();
 
             ArrayList<String> numberList = new ArrayList<>();
@@ -220,4 +220,50 @@ public class DbManager {
         }
         return add;
     }
+
+    ////////////////////////////////////////////////////
+    //TODO getPopularTariffs and getPopularAdds       //
+    ////////////////////////////////////////////////////
+    public ArrayList<String> getPopularTariffs() {
+        ArrayList<String> popularTariffs = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(connectionString)) {
+            PreparedStatement statement = conn.prepareStatement("call popularTariffs();");
+            ResultSet tariffs = statement.executeQuery();
+            while (tariffs.next()){
+                popularTariffs.add(tariffs.getString("name"));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return popularTariffs;
+    }
+
+    public ArrayList<String> getPopularAdds() {
+        ArrayList<String> popularAdds = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(connectionString)) {
+            PreparedStatement statement = conn.prepareStatement("call popularAdds();");
+            ResultSet adds = statement.executeQuery();
+            while (adds.next()){
+                popularAdds.add(adds.getString("name"));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return popularAdds;
+    }
+
+    /////////////////////////////////////////////////////////
+    //TODO getClientsCount, getTariffsCount, getAddsCount  //
+    /////////////////////////////////////////////////////////
+    public int getClientsCount(){
+        return 0;
+    }
+    public int getTariffsCount(){
+        return 0;
+    }
+
+    public int getAddsCount(){
+        return 0;
+    }
+
 }

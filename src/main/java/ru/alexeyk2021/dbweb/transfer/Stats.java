@@ -19,11 +19,11 @@ public class Stats {
     private AddService popularAdd;
 
     public Stats() {
-        this.clientQuantity =
-        this.activeClients =
-        this.inactiveClients =
-        this.tariffQuantity =
-        this.addsQuantity =
+        this.clientQuantity = DbManager.getInstance().getClientsCount();
+        this.activeClients = DbManager.getInstance().getActiveClientsCount();
+        this.inactiveClients = DbManager.getInstance().getClientsCount() - activeClients;
+        this.tariffQuantity = DbManager.getInstance().getTariffsCount();
+        this.addsQuantity = DbManager.getInstance().getAddsCount();
     }
 
     public Stats(int clientQuantity, int activeClients, int inactiveClients, int tariffQuantity, Tariff popularTariff, int addsQuantity, AddService popularAdd) {

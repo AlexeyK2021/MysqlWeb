@@ -252,9 +252,13 @@ public class DbManager {
         return popularAdds;
     }
 
-    /////////////////////////////////////////////////////////
-    //TODO getClientsCount, getTariffsCount, getAddsCount  //
-    /////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    //TODO getActiveClientsCount, getClientsCount, getTariffsCount, getAddsCount  //
+    ////////////////////////////////////////////////////////////////////////////////
+
+    public int getActiveClientsCount() {
+        return 0;
+    }
     public int getClientsCount(){
         return 0;
     }
@@ -265,5 +269,6 @@ public class DbManager {
     public int getAddsCount(){
         return 0;
     }
+
 
 }

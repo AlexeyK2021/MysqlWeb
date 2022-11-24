@@ -90,9 +90,13 @@ public class Stats {
         return tariffQuantity;
     }
 
-
     public ArrayList<String> getPopularTariffNames() {
-        return DbManager.getInstance().getPopularTariffs();
+        ArrayList<String> tariffs = new ArrayList<>();
+        ArrayList<String> allTariffs = DbManager.getInstance().getPopularTariffs();
+        for (int i = 0; i < 3; i++){
+            tariffs.add(allTariffs.get(i));
+        }
+        return tariffs;
     }
 
 
@@ -102,6 +106,11 @@ public class Stats {
 
 
     public ArrayList<String> getPopularAddNames() {
-        return DbManager.getInstance().getPopularAdds();
+        ArrayList<String> adds = new ArrayList<>();
+        ArrayList<String> allAdds = DbManager.getInstance().getPopularAdds();
+        for (int i = 0; i < 3; i++){
+            adds.add(allAdds.get(i));
+        }
+        return adds;
     }
 }

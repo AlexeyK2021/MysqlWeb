@@ -82,7 +82,8 @@ public class AdminPageController {
         if(LoginManager.getInstance().isAdminIsLogged()) {
             pageSettings.setStats();
             model.addAttribute("pageSettings", pageSettings);
-            model.addAttribute("stats", new Stats(6, 5, 1, 5, new Tariff(1, "Test1", 150.0, "Test1 Test1", 15.0, 150, 150), 5, new AddService(1, "Test1", 150.0, "Test1 Test1", 15.0, 150, 150)));
+            DbManager dbManager = DbManager.getInstance();
+            model.addAttribute("stats", new Stats());
             return "admin_page";
         }
         return "redirect:/login";

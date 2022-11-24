@@ -33,7 +33,7 @@
 }
 
 .form_stat{
-    height: 200px;
+    height: 300px;
 }
 
 .button-group {
@@ -57,6 +57,7 @@
 
 .button-edit {
     background: #2186a6;
+    height: 50px;
 }
 
 .button-delete {

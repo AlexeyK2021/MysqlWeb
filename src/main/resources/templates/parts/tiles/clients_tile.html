@@ -1,5 +1,6 @@
 <div class="row row-cols-2 row-cols-sm-2 row-cols-md-4 g-5" th:fragment="tile_client">
     <!--/*@thymesVar id="client" type="ru.alexeyk2021.dbweb.models.Client"*/-->
+
     <div class="tile" th:each="client: ${clients_list}">
         <label class="l1" th:text="*{client.getPhoneNumber()}"></label>
         <div>
@@ -19,8 +20,17 @@
             <label class="right l2" th:text="*{client.getAccountStateString()}"></label>
         </div>
         <div class="button-group">
-            <input class="button button-edit" type="submit" value="Изменить"/>
+            <input class="button button-edit" type="submit" value="Изменить"
+                   th:onclick="'openDialog(' + *{this.getPhoneNumber()} + ');'"></input> <!--Не работает считывание данных из client -->
             <input class="button button-delete" type="submit" value="Удалить"/>
         </div>
     </div>
+
+    <dialog id="myDialog">
+        HELLO WORLD!<br>
+        <label id="phone" class="left l2"></label><br>
+        <input class="button button-delete" type="submit" onclick="closeDialog()" value="Закрыть"></input>
+    </dialog>
 </div>
+
+

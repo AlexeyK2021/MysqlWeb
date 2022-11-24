@@ -24,7 +24,9 @@
         </div>
         <div>
             <label class="left l2">Популярный:</label>
-            <label class="right l2" th:text="*{stats.getPopularTariffNames().getName()}"></label>
+            <div class="right l2" th:each="tariff_name: ${stats.getPopularTariffNames()}">
+                <label th:text="*{tariff_name}"></label><br>
+            </div>
         </div>
         <input class="button button-edit" type="submit" value="Изменить" onclick="location.href='/admin/tariffs'"/>
     </div>
@@ -33,13 +35,13 @@
         <label class="l1">Доп. услуги</label>
         <div>
             <label class="left l2">Количество:</label>
-            <label class="right l2"
-                   th:text="*{stats.getAddsQuantity()}"></label>
+            <label class="right l2" th:text="*{stats.getAddsQuantity()}"></label>
         </div>
         <div>
             <label class="left l2">Популярная:</label>
-            <label class="right l2"
-                   th:text="*{stats.getPopularAddNames().getName()}"></label>
+            <div class="right l2" th:each="add_name: ${stats.getPopularAddNames()}">
+                <label th:text="*{add_name}"><br></label>
+            </div>
         </div>
         <input class="button button-edit" type="submit" value="Изменить" onclick="location.href='/admin/adds'"/>
     </div>

@@ -229,7 +229,7 @@ public class DbManager {
         try (Connection conn = DriverManager.getConnection(connectionString)) {
             PreparedStatement statement = conn.prepareStatement("call popularTariffs();");
             ResultSet tariffs = statement.executeQuery();
-            while (tariffs.next()){
+            while (tariffs.next()) {
                 popularTariffs.add(tariffs.getString("name"));
             }
         } catch (Exception e) {
@@ -243,7 +243,7 @@ public class DbManager {
         try (Connection conn = DriverManager.getConnection(connectionString)) {
             PreparedStatement statement = conn.prepareStatement("call popularAdds();");
             ResultSet adds = statement.executeQuery();
-            while (adds.next()){
+            while (adds.next()) {
                 popularAdds.add(adds.getString("name"));
             }
         } catch (Exception e) {
@@ -257,18 +257,54 @@ public class DbManager {
     ////////////////////////////////////////////////////////////////////////////////
 
     public int getActiveClientsCount() {
-        return 0;
-    }
-    public int getClientsCount(){
-        return 0;
-    }
-    public int getTariffsCount(){
+        try (Connection conn = DriverManager.getConnection(connectionString)) {
+            PreparedStatement statement = conn.prepareStatement("SELECT COUNT(*) as count FROM client WHERE client.account_state = true;");
+            ResultSet clients = statement.executeQuery();
+            clients.next();
+            return clients.getInt("count");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         return 0;
     }
 
-    public int getAddsCount(){
+    public int getClientsCount() {
+        try (Connection conn = DriverManager.getConnection(connectionString)) {
+            PreparedStatement statement = conn.prepareStatement("SELECT COUNT(*) as count FROM client;");
+            ResultSet clients = statement.executeQuery();
+            clients.next();
+            return clients.getInt("count");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         return 0;
     }
 
+    public int getTariffsCount() {
+        try (Connection conn = DriverManager.getConnection(connectionString)) {
+            PreparedStatement statement = conn.prepareStatement("SELECT COUNT(*) as count FROM tariff;");
+            ResultSet clients = statement.executeQuery();
+            clients.next();
+            return clients.getInt("count");
 
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
+    public int getAddsCount() {
+        try (Connection conn = DriverManager.getConnection(connectionString)) {
+            PreparedStatement statement = conn.prepareStatement("SELECT COUNT(*) as count FROM add_service;");
+            ResultSet clients = statement.executeQuery();
+            clients.next();
+            return clients.getInt("count");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
 }

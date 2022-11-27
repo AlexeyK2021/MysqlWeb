@@ -40,6 +40,10 @@ public class Client {
         }
     }
 
+    public int getClientId() {
+        return clientId;
+    }
+
     public double getBalance() {
         return balance;
     }

@@ -53,6 +53,24 @@
     font-weight: bold;
     font-size: 20px;
     border: 0;
+    text-decoration: none;
+    color: black;
+}
+
+.button:link{
+    color:black;
+}
+.button:visited{
+    color:black;
+}
+.button:hover{
+    color:black;
+}
+.button:focus{
+    color:black;
+}
+.button:active{
+    color:black;
 }
 
 .button-edit {

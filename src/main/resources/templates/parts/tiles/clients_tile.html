@@ -20,17 +20,11 @@
             <label class="right l2" th:text="*{client.getAccountStateString()}"></label>
         </div>
         <div class="button-group">
-            <input class="button button-edit" type="submit" value="Изменить"
-                   th:onclick="'openDialog(' + *{this.getPhoneNumber()} + ');'"></input> <!--Не работает считывание данных из client -->
-            <input class="button button-delete" type="submit" value="Удалить"/>
+            <a class="button button-edit" type="submit" th:href="'/admin/clients/edit?id=' + ${client.getClientId()}">Изменить</a>
+            <a class="button button-delete" type="submit">Удалить</a>
         </div>
     </div>
 
-    <dialog id="myDialog">
-        HELLO WORLD!<br>
-        <label id="phone" class="left l2"></label><br>
-        <input class="button button-delete" type="submit" onclick="closeDialog()" value="Закрыть"></input>
-    </dialog>
 </div>
 
 

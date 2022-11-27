@@ -3,9 +3,7 @@ package ru.alexeyk2021.dbweb.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.alexeyk2021.dbweb.managers.DbManager;
 import ru.alexeyk2021.dbweb.managers.LoginManager;
 import ru.alexeyk2021.dbweb.models.AddService;
@@ -36,14 +34,14 @@ public class AdminPageController {
 
     @GetMapping("/admin")
     public String admin() {
-        if(LoginManager.getInstance().isAdminIsLogged())
+        if (LoginManager.getInstance().isAdminIsLogged())
             return "redirect:/admin/stats";
         return "redirect:/login";
     }
 
     @GetMapping("/admin/clients")
     public String clients_settings(Model model) {
-        if(LoginManager.getInstance().isAdminIsLogged()) {
+        if (LoginManager.getInstance().isAdminIsLogged()) {
             pageSettings.setClients();
             model.addAttribute("pageSettings", pageSettings);
             model.addAttribute("clients_list", clientsList);
@@ -55,7 +53,7 @@ public class AdminPageController {
 
     @GetMapping("/admin/tariffs")
     public String tariffs_settings(Model model) {
-        if(LoginManager.getInstance().isAdminIsLogged()) {
+        if (LoginManager.getInstance().isAdminIsLogged()) {
             pageSettings.setTariffs();
             model.addAttribute("pageSettings", pageSettings);
             model.addAttribute("tariffs_list", tariffsList);
@@ -67,7 +65,7 @@ public class AdminPageController {
 
     @GetMapping("/admin/adds")
     public String adds_settings(Model model) {
-        if(LoginManager.getInstance().isAdminIsLogged()) {
+        if (LoginManager.getInstance().isAdminIsLogged()) {
             pageSettings.setAdds();
             model.addAttribute("pageSettings", pageSettings);
             model.addAttribute("adds_list", addsList);
@@ -79,7 +77,7 @@ public class AdminPageController {
 
     @GetMapping("/admin/stats")
     public String stats(Model model) {
-        if(LoginManager.getInstance().isAdminIsLogged()) {
+        if (LoginManager.getInstance().isAdminIsLogged()) {
             pageSettings.setStats();
             model.addAttribute("pageSettings", pageSettings);
             DbManager dbManager = DbManager.getInstance();
@@ -93,7 +91,7 @@ public class AdminPageController {
     public String findClient(@ModelAttribute("findForm") FindForm findForm, BindingResult bindingResult, Model model) {
         ArrayList<String> phones = DbManager.getInstance().findByPartNumber(findForm.getFindInfo());
         clientsList.clear();
-        for (String p: phones) {
+        for (String p : phones) {
             clientsList.add(DbManager.getInstance().findByPhoneNumber(p));
         }
         return "redirect:/admin/clients";
@@ -103,8 +101,8 @@ public class AdminPageController {
     public String findTariff(@ModelAttribute("findForm") FindForm findForm, BindingResult bindingResult, Model model) {
         ArrayList<Tariff> tariffs = DbManager.getInstance().getAllTariffs();
         tariffsList.clear();
-        for (Tariff t: tariffs) {
-            if(t.getName().toLowerCase().contains(findForm.getFindInfo().toLowerCase()))
+        for (Tariff t : tariffs) {
+            if (t.getName().toLowerCase().contains(findForm.getFindInfo().toLowerCase()))
                 tariffsList.add(t);
         }
         return "redirect:/admin/tariffs";
@@ -114,10 +112,17 @@ public class AdminPageController {
     public String findAdd(@ModelAttribute("findForm") FindForm findForm, BindingResult bindingResult, Model model) {
         ArrayList<AddService> adds = DbManager.getInstance().getAllAdds();
         addsList.clear();
-        for (AddService a: adds) {
-            if(a.getName().toLowerCase().contains(findForm.getFindInfo().toLowerCase()))
+        for (AddService a : adds) {
+            if (a.getName().toLowerCase().contains(findForm.getFindInfo().toLowerCase()))
                 addsList.add(a);
         }
         return "redirect:/admin/adds";
+    }
+
+    @GetMapping ( "/admin/clients/edit")
+    public String editClient(Model model, @RequestParam("id") String phone) {
+        System.out.println(phone);
+        model.addAttribute("data", "+" + phone);
+        return "parts/edit_client";
     }
 }

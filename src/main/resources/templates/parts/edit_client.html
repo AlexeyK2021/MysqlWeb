@@ -1,3 +1,26 @@
-<div>
-    <label th:text="*{data}"></label>
+<div class="edit-client">
+    <!--/*@thymesVar id="editClient" type="ru.alexeyk2021.dbweb.transfer.EditingClient"*/-->
+    <!--/*@thymesVar id="editClient" type="ru.alexeyk2021.dbweb.transfer.EditingClient"*/-->
+    <!--/*@thymesVar id="client" type="ru.alexeyk2021.dbweb.models.Client"*/-->
+    <!--/*@thymesVar id="t" type="ru.alexeyk2021.dbweb.models.Tariff"*/-->
+    <form th:action="@{/admin/clients/edit}" th:object="${editClient}" method="post">
+        <label class="left l2">Тариф:</label>
+        <select id="tariffs" name="tariffs">
+            <option th:each="t : ${tariffs}" th:value="${t.getName()}" th:text="${t.getName()}"
+                    th:selected="${client.getTariff().getName().equals(t.getName())}" th:field="${tariff}"></option>
+        </select>
+        <div>
+            <label class="left l2">ФИО:</label>
+            <input class="right l2" th:value="*{client.getPersonalInfo().getFullName()}" th:field="${fullName}"></input>
+        </div>
+        <div>
+            <label class="left l2">Баланс:</label>
+            <input class="right l2" th:value="*{client.getBalance() + 'р.'}" th:field="${balance}"></input>
+        </div>
+        <div>
+            <label class="left l2"> Аккаунт</label>
+            <input class="right l2" type="checkbox" th:value="*{client.getAccountStateString()}" th:field="${accountState}"></input>
+        </div>
+        <input type="button" class="button button-success">
+    </form>
 </div>

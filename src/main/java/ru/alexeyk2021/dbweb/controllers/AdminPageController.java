@@ -9,9 +9,7 @@ import ru.alexeyk2021.dbweb.managers.LoginManager;
 import ru.alexeyk2021.dbweb.models.AddService;
 import ru.alexeyk2021.dbweb.models.Client;
 import ru.alexeyk2021.dbweb.models.Tariff;
-import ru.alexeyk2021.dbweb.transfer.FindForm;
-import ru.alexeyk2021.dbweb.transfer.PageSettings;
-import ru.alexeyk2021.dbweb.transfer.Stats;
+import ru.alexeyk2021.dbweb.transfer.*;
 
 import java.util.ArrayList;
 
@@ -119,10 +117,64 @@ public class AdminPageController {
         return "redirect:/admin/adds";
     }
 
-    @GetMapping ( "/admin/clients/edit")
-    public String editClient(Model model, @RequestParam("id") String phone) {
+    @GetMapping("/admin/clients/edit")
+    public String editClient(Model model, @RequestParam("phone") String phone) {
         System.out.println(phone);
-        model.addAttribute("data", "+" + phone);
+        Client client = null;
+        EditingClient ec = new EditingClient();
+        for (Client c : clientsList) {
+            if (c.getPhoneNumber().contains(phone)) {
+                client = c;
+                ec.setAccountState(client.getAccountState());
+                ec.setBalance(c.getBalance());
+                ec.setPhoneNumber(c.getPhoneNumber());
+                break;
+            }
+        }
+        model.addAttribute("client", client);
+        model.addAttribute("tariffs", tariffsList);
+        model.addAttribute("adds", addsList);
+        model.addAttribute("editClient", new EditingClient());
         return "parts/edit_client";
+    }
+
+    @PostMapping("/admin/client/edit")
+    public String editClientNew(@ModelAttribute("client") Client client, BindingResult bindingResult, Model model) {
+        System.out.println(client.toString());
+        return "redirect:/admin/clients";
+    }
+
+    @GetMapping("/admin/clients/new")
+    public String newClient(Model model) {
+        ArrayList<String> phones = DbManager.getInstance().getFreePhoneNumbers();
+        model.addAttribute("createUser", new CreateClient());
+        model.addAttribute("tariffs", tariffsList);
+        model.addAttribute("adds", addsList);
+        model.addAttribute("phoneNumbers", phones);
+        return "parts/create_client";
+    }
+
+    @PostMapping("/admin/clients/create")
+    public String createClient(@ModelAttribute("createUser") CreateClient client, Model model) {
+        System.out.println(client.toString());
+        Tariff tariff = null;
+        ArrayList<Integer> addServices = new ArrayList<>();
+        for (Tariff t: tariffsList) {
+            if(t.getName().equals(client.getTariff())){
+                tariff = t;
+                client.setTariffId(t.getTariffId());
+            }
+        }
+        for (String a:client.getAdds()) {
+            for (AddService add: addsList) {
+                if(a.equals(add.getName())){
+                    addServices.add(add.getAddServiceId());
+                }
+            }
+        }
+        client.setAddsIds(addServices);
+
+        DbManager.getInstance().newClient(client);
+        return "redirect:/admin/clients";
     }
 }

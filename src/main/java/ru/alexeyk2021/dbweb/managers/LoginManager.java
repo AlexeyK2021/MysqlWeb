@@ -1,6 +1,7 @@
 package ru.alexeyk2021.dbweb.managers;
 
 
+import ru.alexeyk2021.dbweb.HashController;
 import ru.alexeyk2021.dbweb.models.Client;
 
 import java.security.MessageDigest;
@@ -26,13 +27,13 @@ public class LoginManager {
     }
 
     public boolean enter(String login, String password) {
-        String encryptedPassword = bytesToHex(digest(password.getBytes(), "SHA-256"));
+        String encryptedPassword = HashController.bytesToHex(HashController.digest(password.getBytes(), "SHA-256"));
         currentUser = dbManager.approveEnter(login, encryptedPassword);
         return currentUser != null;
     }
 
     public boolean enterAsAdmin(String login, String password) {
-        String encryptedPassword = bytesToHex(digest(password.getBytes(), "SHA-256"));
+        String encryptedPassword = HashController.bytesToHex(HashController.digest(password.getBytes(), "SHA-256"));
         adminIsLogged =  login.equals(adminLogin) && encryptedPassword.equals(adminPasswd);
         return adminIsLogged;
     }
@@ -48,24 +49,6 @@ public class LoginManager {
     public void exit(){
         currentUser = null;
         adminIsLogged = false;
-    }
-
-    private static byte[] digest(byte[] input, String algorithm) {
-        MessageDigest md;
-        try {
-            md = MessageDigest.getInstance(algorithm);
-        } catch (NoSuchAlgorithmException e) {
-            throw new IllegalArgumentException(e);
-        }
-        return md.digest(input);
-    }
-
-    private static String bytesToHex(byte[] bytes) {
-        StringBuilder sb = new StringBuilder();
-        for (byte b : bytes) {
-            sb.append(String.format("%02x", b));
-        }
-        return sb.toString();
     }
 
 }

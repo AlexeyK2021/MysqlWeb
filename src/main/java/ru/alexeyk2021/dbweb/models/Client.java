@@ -1,5 +1,7 @@
 package ru.alexeyk2021.dbweb.models;
 
+import ru.alexeyk2021.dbweb.transfer.CreateClient;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -89,8 +91,9 @@ public class Client {
     }
 
     public String getPhoneNumber() {
-        return phoneNumber;
+        return phoneNumber.substring(1);
     }
+
 
 }
 

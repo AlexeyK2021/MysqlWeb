@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание клиента</title>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../../css/navbar.css" rel="stylesheet" type="text/css">
+    <link href="../../css/tile.css" rel="stylesheet" type="text/css">
+    <link href="../../css/findForm.css" rel="stylesheet" type="text/css">
+    <link href="../../css/page.css" rel="stylesheet" type="text/css">
+
+    <style>
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+
+</head>
+<body>
+
+<form th:action="@{/admin/clients/create}" th:object="${createUser}" method="post">
+    <div>
+        <label>Фамилия
+            <input type="text" th:field="*{firstName}">
+        </label>
+        <label>Имя
+            <input type="text" th:field="*{secondName}">
+        </label>
+        <label>Отчество
+            <input type="text" th:field="*{thirdName}">
+        </label>
+    </div>
+    <div>
+        <label>Тариф
+            <select id="tariff" name="tariff">
+                <!--/*@thymesVar id="t" type="ru.alexeyk2021.dbweb.models.Tariff"*/-->
+                <option th:each="t : ${tariffs}" th:value="${t.getName()}" th:text="${t.getName()}"></option>
+            </select>
+        </label>
+        <label>Дополнительные услуги
+            <select id="adds" name="adds" multiple="multiple">
+                <option>Нет</option>
+                <!--/*@thymesVar id="a" type="ru.alexeyk2021.dbweb.models.AddService"*/-->
+                <option th:each="a : ${adds}" th:value="${a.getName()}" th:text="${a.getName()}"></option>
+            </select>
+        </label>
+    </div>
+    <div>
+        <label>Паспортные данные
+            <input type="text" th:field="*{passport}">
+        </label>
+        <label>Логин
+            <input type="email" th:field="*{login}">
+        </label>
+        <label>Пароль
+            <input type="password" th:field="*{password}">
+        </label>
+        <label>Номер телефона
+            <select id="phoneNumber" name="phoneNumber">
+                <!--/*@thymesVar id="t" type="ru.alexeyk2021.dbweb.models.Tariff"*/-->
+                <option th:each="n : ${phoneNumbers}" th:value="${n}" th:text="${n}"></option>
+            </select>
+        </label>
+    </div>
+    <input type="submit" class="button-success" value="Сохранить">
+</form>
+</body>
+</html>

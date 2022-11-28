@@ -20,8 +20,8 @@
             <label class="right l2" th:text="*{client.getAccountStateString()}"></label>
         </div>
         <div class="button-group">
-            <a class="button button-edit" type="submit" th:href="'/admin/clients/edit?id=' + ${client.getClientId()}">Изменить</a>
-            <a class="button button-delete" type="submit">Удалить</a>
+            <a class="button button-edit" type="submit" th:href="'/admin/clients/edit?phone=' + ${client.getPhoneNumber()}">Изменить</a>
+            <a class="button button-delete" type="submit" th:onclick="">Удалить</a>
         </div>
     </div>
 

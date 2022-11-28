@@ -28,7 +28,7 @@
 
 <th:block th:if="*{pageSettings.isClients()}">
     <div th:insert="parts/find_field :: find_field_clients"></div>
-    <input class="button-add" type="button" value="Добавить" onclick="">
+    <input class="button-add" type="button" value="Добавить" onclick="location.href='/admin/clients/new'">
     <div class="tiles-container" th:insert="parts/tiles/clients_tile :: div"></div>
 </th:block>
 
@@ -47,6 +47,8 @@
 <th:block th:if="*{pageSettings.isStats()}">
     <div class="stats" th:insert="parts/stats_part :: div"></div>
 </th:block>
+
+
 
 </body>
 </html>

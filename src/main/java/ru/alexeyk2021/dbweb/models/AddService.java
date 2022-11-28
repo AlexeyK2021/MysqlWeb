@@ -63,4 +63,12 @@ public class AddService {
     public int getSmsSize() {
         return smsSize;
     }
+
+    public int getAddServiceId() {
+        return addServiceId;
+    }
+
+    public void setAddServiceId(int addServiceId) {
+        this.addServiceId = addServiceId;
+    }
 }

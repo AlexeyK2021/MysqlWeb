@@ -3,12 +3,14 @@ package ru.alexeyk2021.dbweb.managers;
 
 import ru.alexeyk2021.dbweb.DbwebApplication;
 import ru.alexeyk2021.dbweb.models.*;
+import ru.alexeyk2021.dbweb.transfer.CreateClient;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class DbManager {
@@ -306,5 +308,48 @@ public class DbManager {
             System.out.println(e.getMessage());
         }
         return 0;
+    }
+
+    public boolean newClient(CreateClient client) {
+        try (Connection conn = DriverManager.getConnection(connectionString)) {
+            PreparedStatement statement = conn.prepareStatement("SELECT new_client(?,?,?,?,?,?) AS clientId");
+            statement.setString(1, client.getFullName());
+            statement.setString(2, client.getPassport());
+            statement.setString(3, client.getLogin());
+            statement.setString(4, client.getHashedPassword());
+            statement.setString(5, client.getPhoneNumber());
+            statement.setInt(6, client.getTariffId());
+
+            ResultSet cid = statement.executeQuery();
+            int clientId = -1;
+            while (cid.next()) {
+                clientId = cid.getInt("clientId");
+            }
+
+            for (int add : client.getAddsIds()) {
+                statement = conn.prepareStatement("SELECT create_client_add_service(?,?)");
+                statement.setInt(1, add);
+                statement.setInt(2, clientId);
+                statement.execute();
+            }
+            return true;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ArrayList<String> getFreePhoneNumbers() {
+        ArrayList<String> phones = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(connectionString)) {
+            PreparedStatement statement = conn.prepareStatement("CALL get5numbers;");
+            ResultSet phone = statement.executeQuery();
+            while (phone.next()) {
+                phones.add(phone.getString("phone_number"));
+            }
+            return phones;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

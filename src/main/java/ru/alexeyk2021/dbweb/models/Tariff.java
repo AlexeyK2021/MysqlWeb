@@ -59,4 +59,12 @@ public class Tariff {
     public int getSmsSize() {
         return smsSize;
     }
+
+    public int getTariffId() {
+        return tariffId;
+    }
+
+    public void setTariffId(int tariffId) {
+        this.tariffId = tariffId;
+    }
 }

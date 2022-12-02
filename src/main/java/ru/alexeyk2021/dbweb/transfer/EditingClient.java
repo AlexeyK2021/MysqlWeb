@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EditingClient {
+    private int clientId;
     private String firstName;
     private String secondName;
     private String thirdName;
@@ -37,18 +38,24 @@ public class EditingClient {
         this.phoneNumber = phoneNumber;
     }
 
-    public EditingClient(Client client, AddsRepository addsRepository){
+    public EditingClient(Client client, AddsRepository addsRepository) {
         if (client != null) {
+            adds = new ArrayList<>();
+            clientId = client.getClientId();
             accountState = client.getAccountState();
             balance = client.getBalance();
             phoneNumber = client.getPhoneNumber();
-            adds = addsRepository.getAddsNames();
             login = client.getPersonalInfo().getLogin();
             tariff = client.getTariff().getName();
             passport = client.getPersonalInfo().getPassportData();
             firstName = client.getPersonalInfo().getFirstName();
             secondName = client.getPersonalInfo().getSecondName();
             thirdName = client.getPersonalInfo().getThirdName();
+
+            for (AddService a:client.getAddServiceList()) {
+                adds.add(a.getName());
+            }
+            addsIds = addsRepository.getIdsByNames(adds);
         }
     }
 
@@ -100,13 +107,8 @@ public class EditingClient {
         this.adds = adds;
     }
 
-
     public String getPassport() {
         return passport;
-    }
-
-    public String getHashedPassword() {
-        return HashController.bytesToHex(HashController.digest(password.getBytes(), "SHA-256"));
     }
 
     public void setPassport(String passport) {
@@ -131,16 +133,7 @@ public class EditingClient {
 
     @Override
     public String toString() {
-        return "CreateClient{" +
-                "firstName='" + firstName + '\'' +
-                ", secondName='" + secondName + '\'' +
-                ", thirdName='" + thirdName + '\'' +
-                ", tariff='" + tariff + '\'' +
-                ", adds=" + adds +
-                ", passport='" + passport + '\'' +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+        return "CreateClient{" + "firstName='" + firstName + '\'' + ", secondName='" + secondName + '\'' + ", thirdName='" + thirdName + '\'' + ", tariff='" + tariff + '\'' + ", adds=" + adds + ", passport='" + passport + '\'' + ", login='" + login + '\'' + ", password='" + password + '\'' + '}';
     }
 
     public String getPhoneNumber() {
@@ -167,7 +160,7 @@ public class EditingClient {
         this.addsIds = addsIds;
     }
 
-    public boolean isAccountState() {
+    public boolean getAccountState() {
         return accountState;
     }
 
@@ -181,5 +174,9 @@ public class EditingClient {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public int getClientId() {
+        return clientId;
     }
 }

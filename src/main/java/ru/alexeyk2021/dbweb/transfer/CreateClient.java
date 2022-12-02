@@ -83,10 +83,6 @@ public class CreateClient {
         return passport;
     }
 
-    public String getHashedPassword() {
-        return HashController.bytesToHex(HashController.digest(password.getBytes(), "SHA-256"));
-    }
-
     public void setPassport(String passport) {
         this.passport = passport;
     }

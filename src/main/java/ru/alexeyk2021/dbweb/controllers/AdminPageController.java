@@ -91,7 +91,6 @@ public class AdminPageController {
         if (LoginManager.getInstance().isAdminIsLogged()) {
             pageSettings.setStats();
             model.addAttribute("pageSettings", pageSettings);
-            DbManager dbManager = DbManager.getInstance();
             model.addAttribute("stats", new Stats());
             return "admin_page";
         }
@@ -129,11 +128,11 @@ public class AdminPageController {
     }
 
     @PostMapping("/admin/clients/edit")
-    public String editClientData(@ModelAttribute("editUser") CreateClient client, BindingResult bindingResult, Model model) {
+    public String editClientData(@ModelAttribute("editUser") EditingClient client, BindingResult bindingResult, Model model) {
         Tariff tariff = tariffsRepository.findByName(client.getTariff());
         client.setTariffId(tariff.getTariffId());
 
-        client.setAddsIds(addsRepository.getIdsByName(client.getAdds()));
+        client.setAddsIds(addsRepository.getIdsByNames(client.getAdds()));
 
         if (!client.getPassport().isEmpty())
             client.setPassport(HashController.hash(client.getPassword()));
@@ -153,22 +152,24 @@ public class AdminPageController {
         return "parts/create_client";
     }
 
-    @PostMapping("/admin/clients/create")
+    @PostMapping("/admin/clients/new") // if dont work was /create and in html too
     public String createClient(@ModelAttribute("createUser") CreateClient client, Model model) {
         Tariff tariff = tariffsRepository.findByName(client.getTariff());
         client.setTariffId(tariff.getTariffId());
 
-        client.setAddsIds(addsRepository.getIdsByName(client.getAdds()));
+        client.setAddsIds(addsRepository.getIdsByNames(client.getAdds()));
 
-        if (!client.getPassport().isEmpty())
-            client.setPassport(HashController.hash(client.getPassword()));
+        if (!client.getPassword().isEmpty())
+            client.setPassword(HashController.hash(client.getPassword()));
 
 //        DbManager.getInstance().newClient(client);
         clientRepository.createClient(client);
+        updateClientsList();
         return "redirect:/admin/clients";
     }
 
     private void updateClientsList(){
+        clientRepository.updateClientsList();
         clientsList = clientRepository.getClients();
     }
 

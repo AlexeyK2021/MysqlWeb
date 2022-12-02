@@ -4,6 +4,7 @@ package ru.alexeyk2021.dbweb.managers;
 import ru.alexeyk2021.dbweb.DbwebApplication;
 import ru.alexeyk2021.dbweb.models.*;
 import ru.alexeyk2021.dbweb.transfer.CreateClient;
+import ru.alexeyk2021.dbweb.transfer.EditingClient;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -316,7 +317,7 @@ public class DbManager {
             statement.setString(1, client.getFullName());
             statement.setString(2, client.getPassport());
             statement.setString(3, client.getLogin());
-            statement.setString(4, client.getHashedPassword());
+            statement.setString(4, client.getPassword());
             statement.setString(5, client.getPhoneNumber());
             statement.setInt(6, client.getTariffId());
 
@@ -339,6 +340,59 @@ public class DbManager {
         }
     }
 
+    public boolean editClient(EditingClient client){
+        try (Connection conn = DriverManager.getConnection(connectionString)) {
+            PreparedStatement statement = conn.prepareStatement("UPDATE client SET balance = ?, phone_number = ?, account_state = ?, tariff_id = ? WHERE client_id = ?;");
+            statement.setDouble(1, client.getBalance());
+            statement.setString(2, client.getPhoneNumber());
+            statement.setBoolean(3, client.getAccountState());
+            statement.setInt(4, client.getTariffId());
+            statement.setInt(5, client.getClientId());
+            statement.executeUpdate();
+
+            statement = conn.prepareStatement("UPDATE personal_info SET full_name = ?, passport_data = ?, login = ?, password = ? WHERE client_id = ?;");
+            statement.setString(1, client.getFullName());
+            statement.setString(2, client.getPassport());
+            statement.setString(3, client.getLogin());
+            statement.setString(4, client.getPassword());
+            statement.setInt(5, client.getClientId());
+            statement.executeUpdate();
+
+            statement = conn.prepareStatement("DELETE FROM client_add_service WHERE client_id = ?;");
+            statement.setInt(1, client.getClientId());
+            statement.execute();
+
+            for (int add : client.getAddsIds()) {
+                statement = conn.prepareStatement("SELECT create_client_add_service(?,?)");
+                statement.setInt(1, add);
+                statement.setInt(2, client.getClientId());
+                statement.executeQuery();
+            }
+            return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean deleteClient(int clientId){
+        try (Connection conn = DriverManager.getConnection(connectionString)) {
+            PreparedStatement statement = conn.prepareStatement("DELETE FROM personal_info WHERE client_id = ?;");
+            statement.setInt(1, clientId);
+            statement.execute();
+
+            statement = conn.prepareStatement("DELETE FROM client_add_service WHERE client_id = ?;");
+            statement.setInt(1, clientId);
+            statement.execute();
+
+            statement = conn.prepareStatement("DELETE FROM client WHERE client_id = ?;");
+            statement.setInt(1, clientId);
+            statement.execute();
+            return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public ArrayList<String> getFreePhoneNumbers() {
         ArrayList<String> phones = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(connectionString)) {
@@ -353,6 +407,4 @@ public class DbManager {
         }
     }
 
-    public void editClient(CreateClient client) {
-    }
 }

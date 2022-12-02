@@ -2,7 +2,6 @@ package ru.alexeyk2021.dbweb.Repositories;
 
 import ru.alexeyk2021.dbweb.managers.DbManager;
 import ru.alexeyk2021.dbweb.models.AddService;
-import ru.alexeyk2021.dbweb.models.Tariff;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ public class AddsRepository {
         return newAdds;
     }
 
-    public ArrayList<Integer> getIdsByName(List<String> names) {
+    public ArrayList<Integer> getIdsByNames(List<String> names) {
         ArrayList<Integer> addsIds = new ArrayList<>();
         for (String addName : names) {
             for (AddService a : adds) {

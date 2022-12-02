@@ -3,6 +3,7 @@ package ru.alexeyk2021.dbweb.Repositories;
 import ru.alexeyk2021.dbweb.managers.DbManager;
 import ru.alexeyk2021.dbweb.models.Client;
 import ru.alexeyk2021.dbweb.transfer.CreateClient;
+import ru.alexeyk2021.dbweb.transfer.EditingClient;
 
 import java.util.ArrayList;
 
@@ -33,15 +34,18 @@ public class ClientRepository {
         return newClient;
     }
 
-    public void editClient(CreateClient client) {
-
+    public void editClient(EditingClient client) {
+        DbManager.getInstance().editClient(client);
     }
 
     public void createClient(CreateClient client) {
-
+        DbManager.getInstance().newClient(client);
     }
 
     public void deleteClient(CreateClient client){
 
+    }
+    public void updateClientsList(){
+        clients = DbManager.getInstance().getAllClients();
     }
 }

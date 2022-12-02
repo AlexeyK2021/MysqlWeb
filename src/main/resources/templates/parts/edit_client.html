@@ -1,26 +1,73 @@
-<div class="edit-client">
-    <!--/*@thymesVar id="editClient" type="ru.alexeyk2021.dbweb.transfer.EditingClient"*/-->
-    <!--/*@thymesVar id="editClient" type="ru.alexeyk2021.dbweb.transfer.EditingClient"*/-->
-    <!--/*@thymesVar id="client" type="ru.alexeyk2021.dbweb.models.Client"*/-->
-    <!--/*@thymesVar id="t" type="ru.alexeyk2021.dbweb.models.Tariff"*/-->
-    <form th:action="@{/admin/clients/edit}" th:object="${editClient}" method="post">
-        <label class="left l2">Тариф:</label>
-        <select id="tariffs" name="tariffs">
-            <option th:each="t : ${tariffs}" th:value="${t.getName()}" th:text="${t.getName()}"
-                    th:selected="${client.getTariff().getName().equals(t.getName())}" th:field="${tariff}"></option>
-        </select>
-        <div>
-            <label class="left l2">ФИО:</label>
-            <input class="right l2" th:value="*{client.getPersonalInfo().getFullName()}" th:field="${fullName}"></input>
-        </div>
-        <div>
-            <label class="left l2">Баланс:</label>
-            <input class="right l2" th:value="*{client.getBalance() + 'р.'}" th:field="${balance}"></input>
-        </div>
-        <div>
-            <label class="left l2"> Аккаунт</label>
-            <input class="right l2" type="checkbox" th:value="*{client.getAccountStateString()}" th:field="${accountState}"></input>
-        </div>
-        <input type="button" class="button button-success">
-    </form>
-</div>
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменение клиента</title>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../../css/navbar.css" rel="stylesheet" type="text/css">
+    <link href="../../css/tile.css" rel="stylesheet" type="text/css">
+    <link href="../../css/findForm.css" rel="stylesheet" type="text/css">
+    <link href="../../css/page.css" rel="stylesheet" type="text/css">
+
+    <style>
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+
+</head>
+<body>
+
+<!--/*@thymesVar id="editUser" type="ru.alexeyk2021.dbweb.transfer.EditingClient"*/-->
+<form th:action="@{/admin/clients/edit}" th:object="${editUser}" method="post">
+    <div>
+        <label>Фамилия
+            <input type="text" th:value="*{firstName}" id="firstName" name="firstName">
+        </label>
+        <label>Имя
+            <input type="text" th:value="*{secondName}" id="secondName" name="secondName">
+        </label>
+        <label>Отчество
+            <input type="text" th:value="*{thirdName}" id="thirdName" name="thirdName">
+        </label>
+    </div>
+    <div>
+        <label>Тариф
+            <select id="tariff" name="tariff">
+                <!--/*@thymesVar id="t" type="ru.alexeyk2021.dbweb.models.Tariff"*/-->
+                <option th:each="t : ${tariffs}" th:value="${t.getName()}" th:text="${t.getName()}" th:selected="${t.getName().equals(editUser.getTariff())}"></option>
+            </select>
+        </label>
+        <label>Дополнительные услуги
+            <select id="adds" name="adds" multiple="multiple">
+                <option th:selected="${editUser.getAdds() == null}">Нет</option>
+                <!--/*@thymesVar id="a" type="ru.alexeyk2021.dbweb.models.AddService"*/-->
+                <option th:each="a : ${adds}" th:value="${a.getName()}" th:text="${a.getName()}" th:selected="${editUser.getAdds().contains(a.getName())}"></option>
+            </select>
+        </label>
+    </div>
+    <div>
+        <label>Паспортные данные
+            <input type="text" th:value="*{passport}" id="passport" name="passport">
+        </label>
+        <label>Логин
+            <input type="email" th:value="*{login}" id="login" name="login">
+        </label>
+        <label>Пароль
+            <input type="password" th:value="*{password}" id="password" name="password">
+        </label>
+        <label>Номер телефона
+            <input type="text" th:value="*{phoneNumber}" id="phoneNumber" name="phoneNumber">
+        </label>
+    </div>
+    <input type="submit" class="button-success" value="Сохранить">
+</form>
+</body>
+</html>

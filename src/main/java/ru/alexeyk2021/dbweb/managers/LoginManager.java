@@ -27,13 +27,13 @@ public class LoginManager {
     }
 
     public boolean enter(String login, String password) {
-        String encryptedPassword = HashController.bytesToHex(HashController.digest(password.getBytes(), "SHA-256"));
+        String encryptedPassword = HashController.hash(password);
         currentUser = dbManager.approveEnter(login, encryptedPassword);
         return currentUser != null;
     }
 
     public boolean enterAsAdmin(String login, String password) {
-        String encryptedPassword = HashController.bytesToHex(HashController.digest(password.getBytes(), "SHA-256"));
+        String encryptedPassword = HashController.hash(password);
         adminIsLogged =  login.equals(adminLogin) && encryptedPassword.equals(adminPasswd);
         return adminIsLogged;
     }

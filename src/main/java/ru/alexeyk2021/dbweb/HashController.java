@@ -22,4 +22,8 @@ public class HashController {
         }
         return sb.toString();
     }
+
+    public static String hash(String password){
+        return bytesToHex(HashController.digest(password.getBytes(), "SHA-256"));
+    }
 }

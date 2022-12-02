@@ -42,6 +42,22 @@ public class ClientPersonalInfo {
         return shortname;
     }
 
+    public String getFirstName() {
+        return String.copyValueOf(fullName.toCharArray(), 0, fullName.indexOf(" "));
+    }
+
+    public String getSecondName() {
+        int firstSpaceId = fullName.indexOf(" ") + 1;
+        int count = fullName.lastIndexOf(" ") - firstSpaceId;
+        return String.copyValueOf(fullName.toCharArray(), firstSpaceId, count);
+    }
+
+    public String getThirdName() {
+        int secondSpaceId = fullName.lastIndexOf(" ") + 1;
+        int count = fullName.length() - secondSpaceId;
+        return String.copyValueOf(fullName.toCharArray(), secondSpaceId, count);
+    }
+
     public String getPassportData() {
         return passportData;
     }

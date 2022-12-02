@@ -38,29 +38,15 @@ public class Stats {
 
 
     public Stats(ArrayList<Client> clientsList, ArrayList<Tariff> tariffsList, ArrayList<AddService> addsList) {
-        //получить с БД таблицу популярных   [id_тарифа, count(client.tariff == this)]
-//        clientQuantity = clientsList.size();
-//        for (Client c : clientsList) {
-//            if (c.getAccountState()) activeClients++;
-//        }
-//        inactiveClients = clientQuantity - activeClients;
-//        tariffQuantity = tariffsList.size();
-//
-//
-//        for(Map.Entry<Tariff, Integer> entry: popularTariffs(clientsList).entrySet()){
-//
-//        }
-//
-//    }
-//
-//    private HashMap<Tariff, Integer> popularTariffs(ArrayList<Client> clients) {
-//        HashMap<Tariff, Integer> tariffsNum = new HashMap<>();
-//        for (Client c : clients) {
-//            if (tariffsNum.containsKey(c.getTariff())) tariffsNum.put(c.getTariff(), tariffsNum.get(c.getTariff()) + 1);
-//            else tariffsNum.put(c.getTariff(), 1);
-//        }
-//        return tariffsNum;
+        clientQuantity = clientsList.size();
+        tariffQuantity = tariffsList.size();
+        addsQuantity = addsList.size();
 
+        activeClients = 0;
+        for (Client c: clientsList) {
+            if(c.getAccountState()) activeClients++;
+        }
+        inactiveClients = clientQuantity - activeClients;
     }
 
     public int getClientQuantity() {

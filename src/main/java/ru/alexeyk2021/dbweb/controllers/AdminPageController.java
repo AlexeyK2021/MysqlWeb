@@ -4,6 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.alexeyk2021.dbweb.HashController;
+import ru.alexeyk2021.dbweb.Repositories.AddsRepository;
+import ru.alexeyk2021.dbweb.Repositories.ClientRepository;
+import ru.alexeyk2021.dbweb.Repositories.TariffsRepository;
 import ru.alexeyk2021.dbweb.managers.DbManager;
 import ru.alexeyk2021.dbweb.managers.LoginManager;
 import ru.alexeyk2021.dbweb.models.AddService;
@@ -20,13 +24,22 @@ public class AdminPageController {
     private ArrayList<Tariff> tariffsList;
     private ArrayList<AddService> addsList;
 
+    private TariffsRepository tariffsRepository;
+    private ClientRepository clientRepository;
+    private AddsRepository addsRepository;
+
     private Stats stats;
 
     public AdminPageController() {
-        clientsList = DbManager.getInstance().getAllClients();
-        tariffsList = DbManager.getInstance().getAllTariffs();
-        addsList = DbManager.getInstance().getAllAdds();
-        stats = new Stats(clientsList, tariffsList, addsList);
+        tariffsRepository = new TariffsRepository();
+        clientRepository = new ClientRepository();
+        addsRepository = new AddsRepository();
+
+        clientsList = clientRepository.getClients();
+        tariffsList = tariffsRepository.getTariffs();
+        addsList = addsRepository.getAdds();
+
+        stats = new Stats(clientRepository.getClients(), tariffsRepository.getTariffs(), addsRepository.getAdds());
         pageSettings = new PageSettings();
     }
 
@@ -87,60 +100,46 @@ public class AdminPageController {
 
     @PostMapping("/admin/clients/find")
     public String findClient(@ModelAttribute("findForm") FindForm findForm, BindingResult bindingResult, Model model) {
-        ArrayList<String> phones = DbManager.getInstance().findByPartNumber(findForm.getFindInfo());
-        clientsList.clear();
-        for (String p : phones) {
-            clientsList.add(DbManager.getInstance().findByPhoneNumber(p));
-        }
+        clientsList = clientRepository.findByPartPhoneNumber(findForm.getFindInfo());
         return "redirect:/admin/clients";
     }
 
     @PostMapping("/admin/tariffs/find")
     public String findTariff(@ModelAttribute("findForm") FindForm findForm, BindingResult bindingResult, Model model) {
-        ArrayList<Tariff> tariffs = DbManager.getInstance().getAllTariffs();
-        tariffsList.clear();
-        for (Tariff t : tariffs) {
-            if (t.getName().toLowerCase().contains(findForm.getFindInfo().toLowerCase()))
-                tariffsList.add(t);
-        }
+        tariffsList = tariffsRepository.findByPartName(findForm.getFindInfo());
         return "redirect:/admin/tariffs";
     }
 
     @PostMapping("/admin/adds/find")
     public String findAdd(@ModelAttribute("findForm") FindForm findForm, BindingResult bindingResult, Model model) {
-        ArrayList<AddService> adds = DbManager.getInstance().getAllAdds();
-        addsList.clear();
-        for (AddService a : adds) {
-            if (a.getName().toLowerCase().contains(findForm.getFindInfo().toLowerCase()))
-                addsList.add(a);
-        }
+        addsList = addsRepository.findByPartName(findForm.getFindInfo());
         return "redirect:/admin/adds";
     }
 
     @GetMapping("/admin/clients/edit")
-    public String editClient(Model model, @RequestParam("phone") String phone) {
-        System.out.println(phone);
-        Client client = null;
-        EditingClient ec = new EditingClient();
-        for (Client c : clientsList) {
-            if (c.getPhoneNumber().contains(phone)) {
-                client = c;
-                ec.setAccountState(client.getAccountState());
-                ec.setBalance(c.getBalance());
-                ec.setPhoneNumber(c.getPhoneNumber());
-                break;
-            }
-        }
+    public String editClientPage(Model model, @RequestParam("phone") String phone) {
+        Client client = clientRepository.findByPhoneNumber(phone);
+        EditingClient ec = new EditingClient(client, addsRepository);
+
         model.addAttribute("client", client);
         model.addAttribute("tariffs", tariffsList);
         model.addAttribute("adds", addsList);
-        model.addAttribute("editClient", new EditingClient());
+        model.addAttribute("editUser", ec);
         return "parts/edit_client";
     }
 
-    @PostMapping("/admin/client/edit")
-    public String editClientNew(@ModelAttribute("client") Client client, BindingResult bindingResult, Model model) {
-        System.out.println(client.toString());
+    @PostMapping("/admin/clients/edit")
+    public String editClientData(@ModelAttribute("editUser") CreateClient client, BindingResult bindingResult, Model model) {
+        Tariff tariff = tariffsRepository.findByName(client.getTariff());
+        client.setTariffId(tariff.getTariffId());
+
+        client.setAddsIds(addsRepository.getIdsByName(client.getAdds()));
+
+        if (!client.getPassport().isEmpty())
+            client.setPassport(HashController.hash(client.getPassword()));
+
+//        DbManager.getInstance().editClient(client);
+        clientRepository.editClient(client);
         return "redirect:/admin/clients";
     }
 
@@ -156,25 +155,28 @@ public class AdminPageController {
 
     @PostMapping("/admin/clients/create")
     public String createClient(@ModelAttribute("createUser") CreateClient client, Model model) {
-        System.out.println(client.toString());
-        Tariff tariff = null;
-        ArrayList<Integer> addServices = new ArrayList<>();
-        for (Tariff t: tariffsList) {
-            if(t.getName().equals(client.getTariff())){
-                tariff = t;
-                client.setTariffId(t.getTariffId());
-            }
-        }
-        for (String a:client.getAdds()) {
-            for (AddService add: addsList) {
-                if(a.equals(add.getName())){
-                    addServices.add(add.getAddServiceId());
-                }
-            }
-        }
-        client.setAddsIds(addServices);
+        Tariff tariff = tariffsRepository.findByName(client.getTariff());
+        client.setTariffId(tariff.getTariffId());
 
-        DbManager.getInstance().newClient(client);
+        client.setAddsIds(addsRepository.getIdsByName(client.getAdds()));
+
+        if (!client.getPassport().isEmpty())
+            client.setPassport(HashController.hash(client.getPassword()));
+
+//        DbManager.getInstance().newClient(client);
+        clientRepository.createClient(client);
         return "redirect:/admin/clients";
+    }
+
+    private void updateClientsList(){
+        clientsList = clientRepository.getClients();
+    }
+
+    private void updateTariffsList(){
+        tariffsList = tariffsRepository.getTariffs();
+    }
+
+    private void updateAddsList(){
+        addsList = addsRepository.getAdds();
     }
 }

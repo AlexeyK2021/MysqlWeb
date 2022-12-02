@@ -352,4 +352,7 @@ public class DbManager {
             throw new RuntimeException(e);
         }
     }
+
+    public void editClient(CreateClient client) {
+    }
 }

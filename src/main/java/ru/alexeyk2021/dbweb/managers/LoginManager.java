@@ -29,7 +29,7 @@ public class LoginManager {
     public boolean enter(String login, String password) {
         String encryptedPassword = HashController.hash(password);
         currentUser = dbManager.approveEnter(login, encryptedPassword);
-        return currentUser != null;
+        return currentUser.getClientId() > 0;
     }
 
     public boolean enterAsAdmin(String login, String password) {
@@ -43,6 +43,11 @@ public class LoginManager {
     }
 
     public Client getCurrentUser() {
+        return currentUser;
+    }
+
+    public Client updateCurrentUser(){
+        currentUser = dbManager.findByPhoneNumber(currentUser.getPhoneNumber());
         return currentUser;
     }
 

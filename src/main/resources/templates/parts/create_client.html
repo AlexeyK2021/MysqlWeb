@@ -25,50 +25,47 @@
 </head>
 <body>
 
-<form th:action="@{/admin/clients/new}" th:object="${createUser}" method="post">
+<form th:action="@{/admin/clients/new}" th:object="${createUser}" method="post" style="margin-left: 15px">
     <div>
-        <label>Фамилия
-            <input type="text" th:field="*{firstName}">
-        </label>
-        <label>Имя
-            <input type="text" th:field="*{secondName}">
-        </label>
-        <label>Отчество
-            <input type="text" th:field="*{thirdName}">
-        </label>
-    </div>
-    <div>
-        <label>Тариф
+        <label class="create_form_label">Фамилия<br>
+            <input class="create_form_input" type="text" th:field="*{firstName}">
+        </label><br>
+        <label class="create_form_label">Имя<br>
+            <input class="create_form_input" type="text" th:field="*{secondName}">
+        </label><br>
+        <label class="create_form_label">Отчество<br>
+            <input class="create_form_input" type="text" th:field="*{thirdName}">
+        </label><br>
+        <label class="create_form_label">Тариф<br>
             <select id="tariff" name="tariff">
                 <!--/*@thymesVar id="t" type="ru.alexeyk2021.dbweb.models.Tariff"*/-->
                 <option th:each="t : ${tariffs}" th:value="${t.getName()}" th:text="${t.getName()}"></option>
             </select>
-        </label>
-        <label>Дополнительные услуги
+        </label><br>
+        <label class="create_form_label">Дополнительные услуги<br>
             <select id="adds" name="adds" multiple="multiple">
                 <option>Нет</option>
                 <!--/*@thymesVar id="a" type="ru.alexeyk2021.dbweb.models.AddService"*/-->
                 <option th:each="a : ${adds}" th:value="${a.getName()}" th:text="${a.getName()}"></option>
             </select>
-        </label>
-    </div>
-    <div>
-        <label>Паспортные данные
-            <input type="text" th:field="*{passport}">
-        </label>
-        <label>Логин
-            <input type="email" th:field="*{login}">
-        </label>
-        <label>Пароль
-            <input type="password" th:field="*{password}">
-        </label>
-        <label>Номер телефона
+        </label><br>
+        <label class="create_form_label">Паспортные данные<br>
+            <input class="create_form_input" type="text" th:field="*{passport}">
+        </label><br>
+        <label class="create_form_label">Логин<br>
+            <input class="create_form_input" type="email" th:field="*{login}">
+        </label><br>
+        <label class="create_form_label">Пароль<br>
+            <input class="create_form_input" type="password" th:field="*{password}">
+        </label><br>
+        <label class="create_form_label">Номер телефона<br>
             <select id="phoneNumber" name="phoneNumber">
                 <option th:each="n : ${phoneNumbers}" th:value="${n}" th:text="${n}"></option>
             </select>
-        </label>
+        </label><br>
+
+        <input type="submit" class="button-success" value="Сохранить" style="margin-top: 15px; width: 205px">
     </div>
-    <input type="submit" class="button-success" value="Сохранить">
 </form>
 </body>
 </html>

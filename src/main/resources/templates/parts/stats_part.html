@@ -38,7 +38,7 @@
             <label class="right l2" th:text="*{stats.getAddsQuantity()}"></label>
         </div>
         <div>
-            <label class="left l2">Популярная:</label>
+            <label class="left l2">Популярные:</label>
             <div class="right l2" th:each="add_name: ${stats.getPopularAddNames()}">
                 <label th:text="*{add_name}"><br></label>
             </div>

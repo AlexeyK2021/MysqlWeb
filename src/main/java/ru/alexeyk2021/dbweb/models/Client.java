@@ -91,9 +91,24 @@ public class Client {
     }
 
     public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    public String getShortPhoneName(){
         return phoneNumber.substring(1);
     }
 
-
+    @Override
+    public String toString() {
+        return "Client{" +
+                "clientId=" + clientId +
+                ", balance=" + balance +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", accountState=" + accountState +
+                ", tariff=" + tariff +
+                ", personalInfo=" + personalInfo +
+                ", addServiceList=" + addServiceList +
+                ", reportList=" + reportList +
+                '}';
+    }
 }
 

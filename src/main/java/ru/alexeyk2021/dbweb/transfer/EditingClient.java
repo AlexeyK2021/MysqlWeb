@@ -26,6 +26,7 @@ public class EditingClient {
     private String password;
     private String phoneNumber;
 
+
     public EditingClient(String firstName, String secondName, String thirdName, String tariff, List<String> adds, String passport, String login, String password, String phoneNumber) {
         this.firstName = firstName;
         this.secondName = secondName;
@@ -60,7 +61,7 @@ public class EditingClient {
     }
 
     public EditingClient() {
-
+        accountState = true;
     }
 
     public String getFirstName() {
@@ -179,4 +180,9 @@ public class EditingClient {
     public int getClientId() {
         return clientId;
     }
+
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
+    }
+
 }

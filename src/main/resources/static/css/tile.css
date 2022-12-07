@@ -31,6 +31,9 @@
     margin-left: 15px;
     margin-right: 15px;
 }
+.tile_xl{
+    height: 400px;
+}
 
 .form_stat{
     height: 300px;
@@ -55,6 +58,9 @@
     border: 0;
     text-decoration: none;
     color: black;
+    margin-right: 0.625%;
+    text-align: center;
+    line-height: 3;
 }
 
 .button:link{
@@ -75,7 +81,6 @@
 
 .button-edit {
     background: #2186a6;
-    height: 50px;
 }
 
 .button-delete {
@@ -89,7 +94,7 @@
 }
 
 .add-funds{
-    height: 12%;
+    height: 20%;
     width: 80%;
     margin-left: 15px;
     margin-top: 25px;

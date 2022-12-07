@@ -34,13 +34,13 @@
 
 <th:block th:if="*{pageSettings.isTariffs()}">
     <div th:insert="parts/find_field :: find_field_tariffs"></div>
-    <input class="button-add" type="button" value="Добавить" onclick="">
+    <input class="button-add" type="button" value="Добавить" onclick="location.href='/admin/tariffs/new'">
     <div class="tiles-container" th:insert="parts/tiles/tariffs_tile :: div"></div>
 </th:block>
 
 <th:block th:if="*{pageSettings.isAdds()}">
     <div th:insert="parts/find_field :: find_field_adds"></div>
-    <input class="button-add" type="button" value="Добавить" onclick="">
+    <input class="button-add" type="button" value="Добавить" onclick="location.href='/admin/adds/new'">
     <div class="tiles-container" th:insert="parts/tiles/adds_tile :: div"></div>
 </th:block>
 

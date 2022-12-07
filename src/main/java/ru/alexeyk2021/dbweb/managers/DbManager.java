@@ -1,17 +1,13 @@
 package ru.alexeyk2021.dbweb.managers;
 
 
-import ru.alexeyk2021.dbweb.DbwebApplication;
 import ru.alexeyk2021.dbweb.models.*;
+import ru.alexeyk2021.dbweb.transfer.AddFund;
 import ru.alexeyk2021.dbweb.transfer.CreateClient;
 import ru.alexeyk2021.dbweb.transfer.EditingClient;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 
 public class DbManager {
@@ -34,74 +30,6 @@ public class DbManager {
         }
         return instance;
     }
-
-//    public void connect() throws SQLException {
-
-
-//            ResultSet resultSet = statement.executeQuery("SELECT * FROM client;");
-//            ArrayList<Client> clients = new ArrayList<>();
-//            while (resultSet.next()) {
-//                clients.add(new Client(resultSet));
-//            }
-//            for (Client client : clients) {
-//                System.out.println(client.toString());
-//            }
-
-
-//List<User> users=new ArrayList<User>();
-//
-//while(rs.next()) {
-//   User user = new User();
-//   user.setUserId(rs.getString("UserId"));
-//   user.setFName(rs.getString("FirstName"));
-//  ...
-//  ...
-//  ...
-//
-//
-//  users.add(user);
-//}
-
-//        } catch (SQLException e) {
-//            // handle any errors
-//            System.out.println("SQLException: " + e.getMessage());
-//            System.out.println("SQLState: " + e.getSQLState());
-//            System.out.println("VendorError: " + e.getErrorCode());
-//        } catch (Exception e) {
-//            System.out.println("EXCEPTION " + e.getMessage());
-//        }
-//        }
-//    }
-
-//    public ArrayList<ClientPersonalInfo> getAllClientsData() {
-//        try (Connection conn = DriverManager.getConnection("jdbc:mysql://" + url + "/" + DbName + "?user=" + user + "&password=" + password)) {
-//            Statement statement = conn.createStatement();
-//
-//            statement.executeUpdate("USE test_mirea_db;");
-//            ResultSet resultSet = statement.executeQuery("SELECT * FROM personal_info;");
-//            System.out.println(resultSet.toString());
-//            ArrayList<ClientPersonalInfo> personalInfos = new ArrayList<>();
-//            while (resultSet.next()) {
-//                personalInfos.add(
-//                        new ClientPersonalInfo(
-//                                clientId, resultSet.getString("full_name"),
-//                                resultSet.getString("passport_data"),
-//                                resultSet.getString("login"),
-//                                resultSet.getString("password")
-//                        )
-//                );
-//            }
-//            return personalInfos;
-//        } catch (SQLException e) {
-//            // handle any errors
-//            System.out.println("SQLException: " + e.getMessage());
-//            System.out.println("SQLState: " + e.getSQLState());
-//            System.out.println("VendorError: " + e.getErrorCode());
-//        } catch (Exception e) {
-//            System.out.println("EXCEPTION " + e.getMessage());
-//        }
-//        return null;
-//    }
 
     public Client approveEnter(String login, String password) {
         try (Connection conn = DriverManager.getConnection(connectionString)) {
@@ -224,9 +152,6 @@ public class DbManager {
         return add;
     }
 
-    ////////////////////////////////////////////////////
-    //TODO getPopularTariffs and getPopularAdds       //
-    ////////////////////////////////////////////////////
     public ArrayList<String> getPopularTariffs() {
         ArrayList<String> popularTariffs = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(connectionString)) {
@@ -254,10 +179,6 @@ public class DbManager {
         }
         return popularAdds;
     }
-
-    ////////////////////////////////////////////////////////////////////////////////
-    //TODO getActiveClientsCount, getClientsCount, getTariffsCount, getAddsCount  //
-    ////////////////////////////////////////////////////////////////////////////////
 
     public int getActiveClientsCount() {
         try (Connection conn = DriverManager.getConnection(connectionString)) {
@@ -311,7 +232,7 @@ public class DbManager {
         return 0;
     }
 
-    public boolean newClient(CreateClient client) {
+    public void newClient(CreateClient client) {
         try (Connection conn = DriverManager.getConnection(connectionString)) {
             PreparedStatement statement = conn.prepareStatement("SELECT new_client(?,?,?,?,?,?) AS clientId");
             statement.setString(1, client.getFullName());
@@ -333,14 +254,13 @@ public class DbManager {
                 statement.setInt(2, clientId);
                 statement.execute();
             }
-            return true;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public boolean editClient(EditingClient client){
+    public void updateClient(EditingClient client){
         try (Connection conn = DriverManager.getConnection(connectionString)) {
             PreparedStatement statement = conn.prepareStatement("UPDATE client SET balance = ?, phone_number = ?, account_state = ?, tariff_id = ? WHERE client_id = ?;");
             statement.setDouble(1, client.getBalance());
@@ -350,7 +270,7 @@ public class DbManager {
             statement.setInt(5, client.getClientId());
             statement.executeUpdate();
 
-            statement = conn.prepareStatement("UPDATE personal_info SET full_name = ?, passport_data = ?, login = ?, password = ? WHERE client_id = ?;");
+            statement = conn.prepareStatement("UPDATE personal_info SET full_name=?, passport_data=?, login=?, password=? WHERE client_id=?;");
             statement.setString(1, client.getFullName());
             statement.setString(2, client.getPassport());
             statement.setString(3, client.getLogin());
@@ -368,13 +288,12 @@ public class DbManager {
                 statement.setInt(2, client.getClientId());
                 statement.executeQuery();
             }
-            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public boolean deleteClient(int clientId){
+    public void deleteClient(int clientId){
         try (Connection conn = DriverManager.getConnection(connectionString)) {
             PreparedStatement statement = conn.prepareStatement("DELETE FROM personal_info WHERE client_id = ?;");
             statement.setInt(1, clientId);
@@ -387,7 +306,6 @@ public class DbManager {
             statement = conn.prepareStatement("DELETE FROM client WHERE client_id = ?;");
             statement.setInt(1, clientId);
             statement.execute();
-            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -407,4 +325,102 @@ public class DbManager {
         }
     }
 
+    public void newTariff(Tariff tariff) {
+        try (Connection conn = DriverManager.getConnection(connectionString)) {
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO tariff(name, cost, description, internet_size, minutes_size, sms_size) VALUE (?,?,?,?,?,?);");
+            statement.setString(1, tariff.getName());
+            statement.setDouble(2, tariff.getCost());
+            statement.setString(3, tariff.getDescription());
+            statement.setDouble(4, tariff.getInternetSize());
+            statement.setInt(5, tariff.getMinutesSize());
+            statement.setInt(6, tariff.getSmsSize());
+            boolean status = statement.execute();
+            System.out.println(status);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateTariff(Tariff tariff) {
+        try (Connection conn = DriverManager.getConnection(connectionString)) {
+            PreparedStatement statement = conn.prepareStatement("UPDATE tariff SET name=?, cost=?, description=?, internet_size=?, minutes_size=?, sms_size=? WHERE tariff_id=?;");
+            statement.setString(1, tariff.getName());
+            statement.setDouble(2, tariff.getCost());
+            statement.setString(3, tariff.getDescription());
+            statement.setDouble(4, tariff.getInternetSize());
+            statement.setInt(5, tariff.getMinutesSize());
+            statement.setInt(6, tariff.getSmsSize());
+            statement.setInt(7, tariff.getTariffId());
+            boolean status = statement.execute();
+            System.out.println(status);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void deleteTariff(int tariffId){
+        try (Connection conn = DriverManager.getConnection(connectionString)) {
+            PreparedStatement statement = conn.prepareStatement("DELETE FROM tariff WHERE tariff_id = ?;");
+            statement.setInt(1, tariffId);
+            boolean status = statement.execute();
+            System.out.println(status);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void newAddService(AddService add) {
+        try (Connection conn = DriverManager.getConnection(connectionString)) {
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO add_service(name, cost, description, internet_size, minutes_size, sms_size) VALUE (?,?,?,?,?,?);");
+            statement.setString(1, add.getName());
+            statement.setDouble(2, add.getCost());
+            statement.setString(3, add.getDescription());
+            statement.setDouble(4, add.getInternetSize());
+            statement.setInt(5, add.getMinutesSize());
+            statement.setInt(6, add.getSmsSize());
+            boolean status = statement.execute();
+            System.out.println(status);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateAddService(AddService add) {
+        try (Connection conn = DriverManager.getConnection(connectionString)) {
+            PreparedStatement statement = conn.prepareStatement("UPDATE add_service SET name=?, cost=?, description=?, internet_size=?, minutes_size=?, sms_size=? WHERE add_service_id=?;");
+            statement.setString(1, add.getName());
+            statement.setDouble(2, add.getCost());
+            statement.setString(3, add.getDescription());
+            statement.setDouble(4, add.getInternetSize());
+            statement.setInt(5, add.getMinutesSize());
+            statement.setInt(6, add.getSmsSize());
+            statement.setInt(7, add.getAddServiceId());
+            boolean status = statement.execute();
+            System.out.println(status);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteAddService(int id) {
+        try (Connection conn = DriverManager.getConnection(connectionString)) {
+            PreparedStatement statement = conn.prepareStatement("DELETE FROM add_service WHERE add_service_id = ?;");
+            statement.setInt(1, id);
+            boolean status = statement.execute();
+            System.out.println(status);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void setFunds(double addFund, int clientId) {
+        try (Connection conn = DriverManager.getConnection(connectionString)) {
+            PreparedStatement statement = conn.prepareStatement("UPDATE client SET balance=? WHERE client_id=?;");
+            statement.setDouble(1, addFund);
+            statement.setInt(2, clientId);
+            boolean status = statement.execute();
+            System.out.println(status);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -19,8 +19,36 @@
             <label class="right l2" th:text="*{tariff.getCost() + 'р.'}"></label>
         </div>
         <div class="button-group">
-            <input class="button button-edit" type="submit" value="Изменить"/>
-            <input class="button button-delete" type="submit" value="Удалить"/>
+            <a class="button button-edit" type="submit" th:href="'/admin/tariffs/edit?id=' + ${tariff.getTariffId()}">Изменить</a>
+            <a class="button button-delete" type="submit" th:href="'/admin/tariffs/del?id=' + ${tariff.getTariffId()}">Удалить</a>
+        </div>
+    </div>
+</div>
+
+<div class="row row-cols-2 row-cols-sm-2 row-cols-md-4 g-5" th:fragment="tile_tariff_client">
+    <!--/*@thymesVar id="tariff" type="ru.alexeyk2021.dbweb.models.Tariff"*/-->
+    <!--/*@thymesVar id="client_info" type="ru.alexeyk2021.dbweb.models.Client"*/-->
+    <div class="tile" th:each="tariff: ${tariffs_list}">
+        <label class="l1" th:text="*{tariff.getName()}"></label>
+        <div>
+            <label class="left l2">Моб. интернет:</label>
+            <label class="right l2" th:text="*{tariff.getInternetSize() + ' GB'}"></label>
+        </div>
+        <div>
+            <label class="left l2">SMS:</label>
+            <label class="right l2" th:text="*{tariff.getSmsSize() + ' SMS'}"></label>
+        </div>
+        <div>
+            <label class="left l2">Минуты:</label>
+            <label class="right l2" th:text="*{tariff.getMinutesSize() + ' минут'}"></label>
+        </div>
+        <div>
+            <label class="left l2">Цена</label>
+            <label class="right l2" th:text="*{tariff.getCost() + 'р.'}"></label>
+        </div>
+        <div class="button-group">
+            <a th:if="*{client_info.getTariff().getTariffId() == tariff.getTariffId()}" class="button button-edit" type="submit">Подключено</a>
+            <a th:if="*{client_info.getTariff().getTariffId() != tariff.getTariffId()}" class="button button-delete" type="submit" th:href="'/client/tariffs/con?id=' + ${tariff.getTariffId()}">Подключить</a>
         </div>
     </div>
 </div>

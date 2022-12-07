@@ -19,8 +19,8 @@
             <label class="right l2" th:text="*{add.getCost() + 'р.'}"></label>
         </div>
         <div class="button-group">
-            <input class="button button-edit" type="submit" value="Изменить"/>
-            <input class="button button-delete" type="submit" value="Удалить"/>
+            <a class="button button-edit" type="submit" th:href="'/admin/adds/edit?id=' + ${add.getAddServiceId()}">Изменить</a>
+            <a class="button button-delete" type="submit" th:href="'/admin/adds/del?id=' + ${add.getAddServiceId()}">Удалить</a>
         </div>
     </div>
 </div>

@@ -27,6 +27,7 @@ public class AddsRepository {
 
     public ArrayList<Integer> getIdsByNames(List<String> names) {
         ArrayList<Integer> addsIds = new ArrayList<>();
+        if(names == null) return addsIds;
         for (String addName : names) {
             for (AddService a : adds) {
                 if (a.getName().equals(addName)) {
@@ -37,20 +38,34 @@ public class AddsRepository {
         return addsIds;
     }
 
-//    public AddService findByName(String name) {
-//        AddService newAdd = null;
-//        for (AddService a : adds) {
-//            if (a.getName().toLowerCase().equals(name.toLowerCase())) newAdd = a;
-//        }
-//        return newAdd;
-//    }
-
-        public ArrayList<String> getAddsNames () {
-            ArrayList<String> addsNames = new ArrayList<>();
-            for (AddService a : adds) {
-                addsNames.add(a.getName());
-            }
-            return addsNames;
+    public ArrayList<String> getAddsNames() {
+        ArrayList<String> addsNames = new ArrayList<>();
+        for (AddService a : adds) {
+            addsNames.add(a.getName());
         }
-
+        return addsNames;
     }
+
+    public AddService findById(int id) {
+        for (AddService a : adds) {
+            if (a.getAddServiceId() == id) return a;
+        }
+        return null;
+    }
+
+    public void newAddService(AddService add) {
+        DbManager.getInstance().newAddService(add);
+    }
+
+    public void deleteAdd(int id) {
+        DbManager.getInstance().deleteAddService(id);
+    }
+
+    public void editAddService(AddService add) {
+        DbManager.getInstance().updateAddService(add);
+    }
+
+    public void updateAddsList() {
+        adds = DbManager.getInstance().getAllAdds();
+    }
+}

@@ -71,13 +71,12 @@
 </th:block>
 
 <th:block th:if="*{pageSettings.isTariffs()}">
-    <div th:insert="parts/find_field :: form"></div>
-    <div class="tiles-container" th:insert="parts/tiles/tariffs_tile :: div"></div>
+    <div th:insert="parts/find_field :: find_field_tariffs"></div>
+    <div class="tiles-container" th:insert="parts/tiles/tariffs_tile :: tile_tariff_client"></div>
 </th:block>
 
 <th:block th:if="*{pageSettings.isAdds()}">
-    <div th:insert="parts/find_field :: form"></div>
-    <input class="button-add" type="button" value="Добавить" onclick="">
+    <div th:insert="parts/find_field :: find_field_adds"></div>
     <div class="tiles-container" th:insert="parts/tiles/adds_tile :: div"></div>
 </th:block>
 

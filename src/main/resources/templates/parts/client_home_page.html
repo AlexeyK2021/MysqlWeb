@@ -1,6 +1,6 @@
 <div class="row row-cols-2 row-cols-sm-2 row-cols-md-4 g-5" th:fragment="client_home_page">
     <!--/*@thymesVar id="client_info" type="ru.alexeyk2021.dbweb.models.Client"*/-->
-    <!--/*@thymesVar id="editingClient" type="ru.alexeyk2021.dbweb.transfer.EditingClient"*/-->
+    <!--/*@thymesVar id="addFund" type="ru.alexeyk2021.dbweb.transfer.AddFund"*/-->
     <!--/*@thymesVar id="add" type="ru.alexeyk2021.dbweb.models.AddService"*/-->
     <div class="tile">
         <label class="l1">О счёте</label>
@@ -12,13 +12,13 @@
             <label class="left l2">Состояние:</label>
             <label class="right l2" th:text="*{client_info.getAccountStateString()}"></label>
         </div>
-        <form id="form" class="add-funds" th:action="@{/client/add_money}" th:object="${editingClient}" method="post">
-            <input type="number" class="input-funds" th:field="*{addFunds}"></input>
-            <input class="button button-funds" type="submit" value="Пополнить" onclick="location.href=''"/>
+        <form id="form" class="add-funds" th:action="@{/client/addFunds}" th:object="${addFund}" method="post">
+            <input type="number" class="input-funds" th:field="*{fund}"></input>
+            <input class="button button-funds" type="submit" value="Пополнить"/>
         </form>
     </div>
 
-    <div class="tile">
+    <div class="tile tile_xl">
         <label class="l1">Тариф</label>
         <div>
             <label class="left l2">Название:</label>

@@ -6,16 +6,40 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import ru.alexeyk2021.dbweb.Repositories.AddsRepository;
+import ru.alexeyk2021.dbweb.Repositories.ClientRepository;
+import ru.alexeyk2021.dbweb.Repositories.TariffsRepository;
 import ru.alexeyk2021.dbweb.managers.LoginManager;
+import ru.alexeyk2021.dbweb.models.AddService;
+import ru.alexeyk2021.dbweb.models.Client;
+import ru.alexeyk2021.dbweb.models.Tariff;
+import ru.alexeyk2021.dbweb.transfer.AddFund;
 import ru.alexeyk2021.dbweb.transfer.EditingClient;
 import ru.alexeyk2021.dbweb.transfer.FindForm;
 import ru.alexeyk2021.dbweb.transfer.PageSettings;
+
+import java.util.ArrayList;
 
 @Controller
 public class UserPageController {
     private PageSettings pageSettings;
 
+    private ArrayList<Client> clientsList;
+    private ArrayList<Tariff> tariffsList;
+    private ArrayList<AddService> addsList;
+    private TariffsRepository tariffsRepository;
+    private ClientRepository clientRepository;
+    private AddsRepository addsRepository;
+
     public UserPageController() {
+        tariffsRepository = new TariffsRepository();
+        clientRepository = new ClientRepository();
+        addsRepository = new AddsRepository();
+
+        clientsList = clientRepository.getClients();
+        tariffsList = tariffsRepository.getTariffs();
+        addsList = addsRepository.getAdds();
         pageSettings = new PageSettings();
     }
 
@@ -31,8 +55,8 @@ public class UserPageController {
         if (LoginManager.getInstance().getCurrentUser() != null) {
             pageSettings.setMainPage();
             model.addAttribute("client_info", LoginManager.getInstance().getCurrentUser());
-            model.addAttribute("editingClient", new EditingClient());
             model.addAttribute("pageSettings", pageSettings);
+            model.addAttribute("addFund", new AddFund());
             return "user_page";
         }
         return "redirect:/login";
@@ -45,9 +69,19 @@ public class UserPageController {
             model.addAttribute("client_info", LoginManager.getInstance().getCurrentUser());
             model.addAttribute("findForm", new FindForm());
             model.addAttribute("pageSettings", pageSettings);
+            model.addAttribute("tariffs_list", tariffsList);
             return "user_page";
         }
         return "redirect:/login";
+    }
+
+    @GetMapping("/client/tariffs/con")
+    public String connectTariff(@RequestParam("id") int id, Model model) {
+        EditingClient ec = new EditingClient(LoginManager.getInstance().getCurrentUser(), addsRepository);
+        ec.setTariffId(id);
+        clientRepository.editClient(ec);
+        updateClientsList();
+        return "redirect:/client/tariffs";
     }
 
     @GetMapping("/client/adds")
@@ -73,8 +107,27 @@ public class UserPageController {
         return "redirect:/login";
     }
 
-    @PostMapping("/client/add_money")
-    public String addFunds(@ModelAttribute("editingClient") FindForm findForm, BindingResult bindingResult, Model model){
+    @PostMapping("/client/addFunds")
+    public String addFunds(@ModelAttribute("editingClient") AddFund addFund, BindingResult bindingResult, Model model) {
+        if(addFund.getFund() > 0)
+            clientRepository.addFunds(addFund, LoginManager.getInstance().getCurrentUser());
+        updateClientsList();
         return "redirect:/client/home";
+    }
+
+    private void updateTariffsList() {
+        tariffsRepository.updateTariffsList();
+        tariffsList = tariffsRepository.getTariffs();
+    }
+
+    private void updateClientsList() {
+        clientRepository.updateClientsList();
+        clientsList = clientRepository.getClients();
+        LoginManager.getInstance().updateCurrentUser();
+    }
+
+    private void updateAddsList() {
+        addsRepository.updateAddsList();
+        addsList = addsRepository.getAdds();
     }
 }

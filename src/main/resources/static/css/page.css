@@ -13,6 +13,18 @@
     margin-left: 30px;
     margin-top: 10px;
 }
+
 .button-success{
+    border-radius: 5px;
     background: green;
+}
+
+.create_form_label{
+    font-size: 10pt;
+    margin-top: 5px;
+    color: rgba(54, 91, 86, 0.87);
+}
+
+.create_form_input{
+    border-radius: 5px;
 }

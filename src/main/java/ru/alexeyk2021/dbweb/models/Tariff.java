@@ -22,6 +22,9 @@ public class Tariff {
         this.smsSize = smsSize;
     }
 
+    public Tariff() {
+    }
+
     public Tariff(ResultSet resultSet) {
         try {
             this.tariffId = resultSet.getInt("tariff_id");
@@ -66,5 +69,29 @@ public class Tariff {
 
     public void setTariffId(int tariffId) {
         this.tariffId = tariffId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setInternetSize(double internetSize) {
+        this.internetSize = internetSize;
+    }
+
+    public void setMinutesSize(int minutesSize) {
+        this.minutesSize = minutesSize;
+    }
+
+    public void setSmsSize(int smsSize) {
+        this.smsSize = smsSize;
     }
 }

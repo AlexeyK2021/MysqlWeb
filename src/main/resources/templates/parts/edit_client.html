@@ -26,48 +26,50 @@
 <body>
 
 <!--/*@thymesVar id="editUser" type="ru.alexeyk2021.dbweb.transfer.EditingClient"*/-->
-<form th:action="@{/admin/clients/edit}" th:object="${editUser}" method="post">
+<form th:action="@{/admin/clients/edit}" th:object="${editUser}" method="post" style="margin-left: 15px">
     <div>
-        <label>Фамилия
-            <input type="text" th:value="*{firstName}" id="firstName" name="firstName">
-        </label>
-        <label>Имя
-            <input type="text" th:value="*{secondName}" id="secondName" name="secondName">
-        </label>
-        <label>Отчество
-            <input type="text" th:value="*{thirdName}" id="thirdName" name="thirdName">
-        </label>
-    </div>
-    <div>
-        <label>Тариф
+        <label class="create_form_label">ID Клиента<br>
+            <input class="create_form_input" type="text" th:value="*{clientId}" id="clientId" name="clientId" readonly="readonly">
+        </label><br>
+        <label class="create_form_label">Фамилия<br>
+            <input class="create_form_input" type="text" th:value="*{firstName}" id="firstName" name="firstName">
+        </label><br>
+        <label class="create_form_label">Имя<br>
+            <input class="create_form_input" type="text" th:value="*{secondName}" id="secondName" name="secondName">
+        </label><br>
+        <label class="create_form_label">Отчество<br>
+            <input class="create_form_input" type="text" th:value="*{thirdName}" id="thirdName" name="thirdName">
+        </label><br>
+        <label class="create_form_label">Тариф<br>
             <select id="tariff" name="tariff">
                 <!--/*@thymesVar id="t" type="ru.alexeyk2021.dbweb.models.Tariff"*/-->
-                <option th:each="t : ${tariffs}" th:value="${t.getName()}" th:text="${t.getName()}" th:selected="${t.getName().equals(editUser.getTariff())}"></option>
+                <option th:each="t : ${tariffs}" th:value="${t.getName()}" th:text="${t.getName()}"
+                        th:selected="${t.getName().equals(editUser.getTariff())}"></option>
             </select>
-        </label>
-        <label>Дополнительные услуги
+        </label><br>
+        <label class="create_form_label">Дополнительные услуги<br>
             <select id="adds" name="adds" multiple="multiple">
-                <option th:selected="${editUser.getAdds() == null}">Нет</option>
+                <option th:selected="${editUser.getAdds().isEmpty()}">Нет</option>
                 <!--/*@thymesVar id="a" type="ru.alexeyk2021.dbweb.models.AddService"*/-->
-                <option th:each="a : ${adds}" th:value="${a.getName()}" th:text="${a.getName()}" th:selected="${editUser.getAdds().contains(a.getName())}"></option>
+                <option th:each="a : ${adds}" th:value="${a.getName()}" th:text="${a.getName()}"
+                        th:selected="${editUser.getAdds().contains(a.getName())}"></option>
             </select>
-        </label>
+        </label><br>
+        <label class="create_form_label">Паспортные данные<br>
+            <input class="create_form_input" type="text" th:value="*{passport}" id="passport" name="passport">
+        </label><br>
+        <label class="create_form_label">Логин<br>
+            <input class="create_form_input" type="email" th:value="*{login}" id="login" name="login">
+        </label><br>
+        <label class="create_form_label">Пароль<br>
+            <input class="create_form_input" type="password" th:value="*{password}" id="password" name="password">
+        </label><br>
+        <label class="create_form_label" readonly="readonly">Номер телефона<br>
+            <input class="create_form_input" type="text" th:value="*{phoneNumber}" id="phoneNumber" name="phoneNumber">
+        </label><br>
+
+        <input type="submit" class="button-success" value="Сохранить" style="margin-top: 15px; width: 205px">
     </div>
-    <div>
-        <label>Паспортные данные
-            <input type="text" th:value="*{passport}" id="passport" name="passport">
-        </label>
-        <label>Логин
-            <input type="email" th:value="*{login}" id="login" name="login">
-        </label>
-        <label>Пароль
-            <input type="password" th:value="*{password}" id="password" name="password">
-        </label>
-        <label>Номер телефона
-            <input type="text" th:value="*{phoneNumber}" id="phoneNumber" name="phoneNumber">
-        </label>
-    </div>
-    <input type="submit" class="button-success" value="Сохранить">
 </form>
 </body>
 </html>

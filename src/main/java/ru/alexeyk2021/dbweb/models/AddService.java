@@ -23,6 +23,9 @@ public class AddService {
         this.smsSize = smsSize;
     }
 
+    public AddService() {
+    }
+
     public AddService(ResultSet resultSet) {
         try {
             this.addServiceId = resultSet.getInt("add_service_id");
@@ -37,10 +40,11 @@ public class AddService {
             throw new RuntimeException(e);
         }
     }
-/*
 
-*/
- public String getName() {
+    /*
+
+     */
+    public String getName() {
         return name;
     }
 
@@ -70,5 +74,29 @@ public class AddService {
 
     public void setAddServiceId(int addServiceId) {
         this.addServiceId = addServiceId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setInternetSize(double internetSize) {
+        this.internetSize = internetSize;
+    }
+
+    public void setMinutesSize(int minutesSize) {
+        this.minutesSize = minutesSize;
+    }
+
+    public void setSmsSize(int smsSize) {
+        this.smsSize = smsSize;
     }
 }

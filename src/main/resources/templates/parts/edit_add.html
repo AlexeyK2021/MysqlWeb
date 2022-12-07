@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменение дополнительной услуги</title>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../../css/navbar.css" rel="stylesheet" type="text/css">
+    <link href="../../css/tile.css" rel="stylesheet" type="text/css">
+    <link href="../../css/findForm.css" rel="stylesheet" type="text/css">
+    <link href="../../css/page.css" rel="stylesheet" type="text/css">
+
+    <style>
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+
+</head>
+<body>
+
+<!--/*@thymesVar id="editAdd" type="ru.alexeyk2021.dbweb.models.AddService"*/-->
+<form th:action="@{/admin/adds/edit}" th:object="${editAdd}" method="post" style="margin-left: 15px">
+    <div>
+        <label class="create_form_label">ID Тарифа<br>
+            <input class="create_form_input" type="text" th:value="*{addServiceId}" id="addServiceId"
+                   name="addServiceId" readonly="readonly">
+        </label><br>
+        <label class="create_form_label">Название<br>
+            <input class="create_form_input" type="text" th:field="*{name}" id="name" name="name">
+        </label><br>
+        <label class="create_form_label">Описание<br>
+            <input class="create_form_input" type="text" th:field="*{description}" id="description" name="description">
+        </label><br>
+        <label class="create_form_label">Мобильный интернет<br>
+            <input class="create_form_input" type="number" th:field="*{internetSize}" id="internetSize"
+                   name="internetSize">
+        </label><br>
+        <label class="create_form_label">Звонки<br>
+            <input class="create_form_input" type="number" th:field="*{minutesSize}" id="minutesSize"
+                   name="minutesSize">
+        </label><br>
+        <label class="create_form_label">SMS<br>
+            <input class="create_form_input" type="number" th:field="*{smsSize}" id="smsSize" name="smsSize">
+        </label><br>
+        <label class="create_form_label">Цена<br>
+            <input class="create_form_input" type="number" th:field="*{cost}" id="cost" name="cost">
+        </label><br>
+
+        <input type="submit" class="button-success" value="Сохранить" style="margin-top: 15px; width: 205px">
+    </div>
+</form>
+</body>
+</html>

@@ -28,7 +28,7 @@ public class LoginController {
     public String clientLogin(@ModelAttribute("userForm") LoginForm loginForm, BindingResult bindingResult, Model model) {
         if(LoginManager.getInstance().enterAsAdmin(loginForm.getUsername(), loginForm.getPassword())) return "redirect:/admin/stats";
         else if(LoginManager.getInstance().enter(loginForm.getUsername(), loginForm.getPassword())) return "redirect:/client";
-        return "redirect:/login";
+        return "redirect:/admin";
     }
 
     @GetMapping("/logout")

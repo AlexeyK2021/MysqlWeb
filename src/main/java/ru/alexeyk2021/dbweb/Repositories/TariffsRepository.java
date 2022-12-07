@@ -1,7 +1,6 @@
 package ru.alexeyk2021.dbweb.Repositories;
 
 import ru.alexeyk2021.dbweb.managers.DbManager;
-import ru.alexeyk2021.dbweb.models.Client;
 import ru.alexeyk2021.dbweb.models.Tariff;
 
 import java.util.ArrayList;
@@ -32,4 +31,26 @@ public class TariffsRepository {
         }
         return newTariff;
     }
+
+    public Tariff findById(int id) {
+        for (Tariff t :tariffs) {
+            if(t.getTariffId() == id) return t;
+        }
+        return null;
+    }
+
+    public void editTariff(Tariff tariff){
+        DbManager.getInstance().updateTariff(tariff);
+    }
+    public void newTariff(Tariff tariff){
+        DbManager.getInstance().newTariff(tariff);
+    }
+    public void deleteTariff(int id){
+        DbManager.getInstance().deleteTariff(id);
+    }
+    public void updateTariffsList(){
+        tariffs = DbManager.getInstance().getAllTariffs();
+    }
+
+
 }

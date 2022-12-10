@@ -31,6 +31,7 @@ public class LoginController {
         return "redirect:/admin";
     }
 
+
     @GetMapping("/logout")
     public String logout(){
         LoginManager.getInstance().exit();

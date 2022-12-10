@@ -64,7 +64,6 @@ public class AdminPageController {
     @GetMapping("/admin/clients")
     public String clients_settings(Model model) {
         if (LoginManager.getInstance().isAdminIsLogged()) {
-            updateClientsList();
             pageSettings.setClients();
             model.addAttribute("pageSettings", pageSettings);
             model.addAttribute("clients_list", clientsList);
@@ -77,7 +76,6 @@ public class AdminPageController {
     @GetMapping("/admin/tariffs")
     public String tariffs_settings(Model model) {
         if (LoginManager.getInstance().isAdminIsLogged()) {
-            updateTariffsList();
             pageSettings.setTariffs();
             model.addAttribute("pageSettings", pageSettings);
             model.addAttribute("tariffs_list", tariffsList);

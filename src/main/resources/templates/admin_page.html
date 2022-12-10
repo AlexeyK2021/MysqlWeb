@@ -35,7 +35,7 @@
 <th:block th:if="*{pageSettings.isTariffs()}">
     <div th:insert="parts/find_field :: find_field_tariffs"></div>
     <input class="button-add" type="button" value="Добавить" onclick="location.href='/admin/tariffs/new'">
-    <div class="tiles-container" th:insert="parts/tiles/tariffs_tile :: div"></div>
+    <div class="tiles-container" th:insert="parts/tiles/tariffs_tile :: tile_tariff"></div>
 </th:block>
 
 <th:block th:if="*{pageSettings.isAdds()}">

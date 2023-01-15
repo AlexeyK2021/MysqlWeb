@@ -335,7 +335,6 @@ public class DbManager {
             statement.setInt(5, tariff.getMinutesSize());
             statement.setInt(6, tariff.getSmsSize());
             boolean status = statement.execute();
-            System.out.println(status);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -352,7 +351,6 @@ public class DbManager {
             statement.setInt(6, tariff.getSmsSize());
             statement.setInt(7, tariff.getTariffId());
             boolean status = statement.execute();
-            System.out.println(status);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -362,7 +360,6 @@ public class DbManager {
             PreparedStatement statement = conn.prepareStatement("DELETE FROM tariff WHERE tariff_id = ?;");
             statement.setInt(1, tariffId);
             boolean status = statement.execute();
-            System.out.println(status);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -378,7 +375,6 @@ public class DbManager {
             statement.setInt(5, add.getMinutesSize());
             statement.setInt(6, add.getSmsSize());
             boolean status = statement.execute();
-            System.out.println(status);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -395,7 +391,6 @@ public class DbManager {
             statement.setInt(6, add.getSmsSize());
             statement.setInt(7, add.getAddServiceId());
             boolean status = statement.execute();
-            System.out.println(status);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -406,7 +401,6 @@ public class DbManager {
             PreparedStatement statement = conn.prepareStatement("DELETE FROM add_service WHERE add_service_id = ?;");
             statement.setInt(1, id);
             boolean status = statement.execute();
-            System.out.println(status);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -418,7 +412,6 @@ public class DbManager {
             statement.setDouble(1, addFund);
             statement.setInt(2, clientId);
             boolean status = statement.execute();
-            System.out.println(status);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

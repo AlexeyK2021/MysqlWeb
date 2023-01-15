@@ -77,14 +77,18 @@ public class Client {
     public ArrayList<AddService> getAddServiceList() {
         return addServiceList;
     }
+    public ArrayList<Integer> getAddServiceListIds(){
+        ArrayList<Integer> addsIds = new ArrayList<>();
+        for (AddService add:addServiceList) {
+            addsIds.add(add.getAddServiceId());
+        }
+        return addsIds;
+    }
 
     public void setAddServiceList(ArrayList<AddService> addServiceList) {
         this.addServiceList = addServiceList;
     }
 
-    public ArrayList<Report> getReportList() {
-        return reportList;
-    }
 
     public void setReportList(ArrayList<Report> reportList) {
         this.reportList = reportList;

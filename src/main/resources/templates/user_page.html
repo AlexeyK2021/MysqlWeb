@@ -77,7 +77,7 @@
 
 <th:block th:if="*{pageSettings.isAdds()}">
     <div th:insert="parts/find_field :: find_field_adds"></div>
-    <div class="tiles-container" th:insert="parts/tiles/adds_tile :: div"></div>
+    <div class="tiles-container" th:insert="parts/tiles/adds_tile :: tile_adds_client"></div>
 </th:block>
 
 <th:block th:if="*{pageSettings.isPersonalInfo()}">

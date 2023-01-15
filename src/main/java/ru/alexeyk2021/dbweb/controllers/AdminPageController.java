@@ -133,7 +133,7 @@ public class AdminPageController {
     @GetMapping("/admin/clients/edit")
     public String editClientPage(Model model, @RequestParam("phone") String phone) {
         Client client = clientRepository.findByPhoneNumber("+" + phone);
-        EditingClient ec = new EditingClient(client, addsRepository);
+        EditingClient ec = new EditingClient(client, addsRepository, tariffsRepository);
 
         model.addAttribute("client", client);
         model.addAttribute("tariffs", tariffsList);

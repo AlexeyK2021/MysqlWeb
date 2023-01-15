@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.alexeyk2021.dbweb.HashController;
 import ru.alexeyk2021.dbweb.Repositories.AddsRepository;
 import ru.alexeyk2021.dbweb.Repositories.ClientRepository;
 import ru.alexeyk2021.dbweb.Repositories.TariffsRepository;
@@ -78,7 +77,7 @@ public class UserPageController {
 
     @GetMapping("/client/tariffs/con")
     public String connectTariff(@RequestParam("id") int id, Model model) {
-        EditingClient ec = new EditingClient(LoginManager.getInstance().getCurrentUser(), addsRepository);
+        EditingClient ec = new EditingClient(LoginManager.getInstance().getCurrentUser(), addsRepository, tariffsRepository);
         ec.setTariffId(id);
         ec.setPassword(LoginManager.getInstance().getCurrentUser().getPersonalInfo().getPassword());
         clientRepository.editClient(ec);
@@ -93,9 +92,30 @@ public class UserPageController {
             model.addAttribute("client_info", LoginManager.getInstance().getCurrentUser());
             model.addAttribute("findForm", new FindForm());
             model.addAttribute("pageSettings", pageSettings);
+            model.addAttribute("adds_list", addsList);
             return "user_page";
         }
         return "redirect:/login";
+    }
+
+    @GetMapping("/client/adds/con")
+    public String connectAdd(@RequestParam("id") int id, Model model) {
+        EditingClient ec = new EditingClient(LoginManager.getInstance().getCurrentUser(), addsRepository, tariffsRepository);
+        ec.addAddId(id);
+        ec.setPassword(LoginManager.getInstance().getCurrentUser().getPersonalInfo().getPassword());
+        clientRepository.editClient(ec);
+        updateClientsList();
+        return "redirect:/client/adds";
+    }
+
+    @GetMapping("/client/adds/discon")
+    public String disconnectAdd(@RequestParam("id") int id, Model model) {
+        EditingClient ec = new EditingClient(LoginManager.getInstance().getCurrentUser(), addsRepository, tariffsRepository);
+        ec.removeAddId(id);
+        ec.setPassword(LoginManager.getInstance().getCurrentUser().getPersonalInfo().getPassword());
+        clientRepository.editClient(ec);
+        updateClientsList();
+        return "redirect:/client/adds";
     }
 
     @GetMapping("/client/personal")

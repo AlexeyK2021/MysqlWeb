@@ -1,6 +1,6 @@
 <div class="row row-cols-2 row-cols-sm-2 row-cols-md-4 g-5" th:fragment="stats_part">
     <!--/*@thymesVar id="stats" type="ru.alexeyk2021.dbweb.transfer.Stats"*/-->
-    <div class="tile form_stat">
+    <div class="tile">
         <label class="l1">Клиенты</label>
         <div>
             <label class="left l2">Активные:</label>
@@ -15,7 +15,7 @@
         <input class="button button-edit" type="submit" value="Изменить" onclick="location.href='/admin/clients'"/>
     </div>
 
-    <div class="tile form_stat">
+    <div class="tile">
         <label class="l1">Тарифы</label>
         <div>
             <label class="left l2">Количество:</label>
@@ -23,15 +23,16 @@
                    th:text="*{stats.getTariffQuantity()}"></label>
         </div>
         <div>
-            <label class="left l2">Популярный:</label>
+            <label class="left l2">Популярные:</label>
             <div class="right l2" th:each="tariff_name: ${stats.getPopularTariffNames()}">
-                <label th:text="*{tariff_name}"></label><br>
+                <label th:text="*{tariff_name}"></label>
+                <br>
             </div>
         </div>
         <input class="button button-edit" type="submit" value="Изменить" onclick="location.href='/admin/tariffs'"/>
     </div>
 
-    <div class="tile form_stat">
+    <div class="tile">
         <label class="l1">Доп. услуги</label>
         <div>
             <label class="left l2">Количество:</label>
@@ -40,7 +41,7 @@
         <div>
             <label class="left l2">Популярные:</label>
             <div class="right l2" th:each="add_name: ${stats.getPopularAddNames()}">
-                <label th:text="*{add_name}"><br></label>
+                <label th:text="*{add_name}"></label>
             </div>
         </div>
         <input class="button button-edit" type="submit" value="Изменить" onclick="location.href='/admin/adds'"/>

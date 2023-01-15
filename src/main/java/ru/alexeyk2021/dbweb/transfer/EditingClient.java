@@ -2,6 +2,7 @@ package ru.alexeyk2021.dbweb.transfer;
 
 import ru.alexeyk2021.dbweb.HashController;
 import ru.alexeyk2021.dbweb.Repositories.AddsRepository;
+import ru.alexeyk2021.dbweb.Repositories.TariffsRepository;
 import ru.alexeyk2021.dbweb.models.AddService;
 import ru.alexeyk2021.dbweb.models.Client;
 
@@ -39,7 +40,7 @@ public class EditingClient {
         this.phoneNumber = phoneNumber;
     }
 
-    public EditingClient(Client client, AddsRepository addsRepository) {
+    public EditingClient(Client client, AddsRepository addsRepository, TariffsRepository tariffsRepository) {
         if (client != null) {
             adds = new ArrayList<>();
             clientId = client.getClientId();
@@ -57,6 +58,7 @@ public class EditingClient {
                 adds.add(a.getName());
             }
             addsIds = addsRepository.getIdsByNames(adds);
+            tariffId = tariffsRepository.findByName(tariff).getTariffId();
         }
     }
 
@@ -159,6 +161,13 @@ public class EditingClient {
 
     public void setAddsIds(List<Integer> addsIds) {
         this.addsIds = addsIds;
+    }
+
+    public void addAddId(int addId){
+        this.addsIds.add(addId);
+    }
+    public void removeAddId(int addId){
+        this.addsIds.remove((Integer)addId);
     }
 
     public boolean getAccountState() {

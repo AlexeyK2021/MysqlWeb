@@ -48,8 +48,9 @@
         <label class="create_form_label">Цена<br>
             <input class="create_form_input" type="number" th:field="*{cost}" id="cost" name="cost">
         </label><br>
-
-        <input type="submit" class="button-success" value="Сохранить" style="margin-top: 15px; width: 205px">
+        <br>
+        <input type="submit" class="button button-edit" value="Сохранить"><br>
+        <a class="button button-delete" type="submit" th:href="'/admin/adds'">Отмена</a>
     </div>
 </form>
 </body>

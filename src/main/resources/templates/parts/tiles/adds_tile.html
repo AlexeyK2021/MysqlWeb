@@ -24,3 +24,31 @@
         </div>
     </div>
 </div>
+
+<div class="row row-cols-2 row-cols-sm-2 row-cols-md-4 g-5" th:fragment="tile_adds_client">
+    <!--/*@thymesVar id="add" type="ru.alexeyk2021.dbweb.models.AddService"*/-->
+    <!--/*@thymesVar id="client_info" type="ru.alexeyk2021.dbweb.models.Client"*/-->
+    <div class="tile" th:each="add: ${adds_list}">
+        <label class="l1" th:text="*{add.getName()}"></label>
+        <div>
+            <label class="left l2">Моб. интернет:</label>
+            <label class="right l2" th:text="*{add.getInternetSize() + ' GB'}"></label>
+        </div>
+        <div>
+            <label class="left l2">SMS:</label>
+            <label class="right l2" th:text="*{add.getSmsSize() + ' SMS'}"></label>
+        </div>
+        <div>
+            <label class="left l2">Минуты:</label>
+            <label class="right l2" th:text="*{add.getMinutesSize() + ' минут'}"></label>
+        </div>
+        <div>
+            <label class="left l2">Цена</label>
+            <label class="right l2" th:text="*{add.getCost() + 'р.'}"></label>
+        </div>
+        <div class="button-group">
+            <a th:if="*{client_info.getAddServiceListIds().contains(add.getAddServiceId())}" class="button button-edit" type="submit" th:href="'/client/adds/discon?id=' + ${add.getAddServiceId()}">Отключить</a>
+            <a th:if="*{!client_info.getAddServiceListIds().contains(add.getAddServiceId())}" class="button button-delete" type="submit" th:href="'/client/adds/con?id=' + ${add.getAddServiceId()}">Подключить</a>
+        </div>
+    </div>
+</div>
